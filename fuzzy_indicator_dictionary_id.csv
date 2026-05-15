@@ -1,0 +1,65 @@
+indikator_normal,kata_kunci_variasi,kategori_relevan,bobot_risiko
+link tidak resmi,link aneh,multi,10
+link tidak resmi,tautan palsu,multi,10
+link tidak resmi,url palsu,multi,15
+link tidak resmi,alamat web mencurigakan,multi,25
+link tidak resmi,domain bukan resmi,multi,25
+link tidak resmi,web abal abal,multi,25
+domain mencurigakan,domain aneh,multi,20
+domain mencurigakan,alamat situs mirip,multi,15
+domain mencurigakan,bukan situs resmi,multi,20
+domain mencurigakan,website tiruan,multi,20
+meminta OTP,minta otp,multi,20
+meminta OTP,kode otp,multi,10
+meminta OTP,kode verifikasi,multi,10
+meminta OTP,6 digit kode,multi,15
+meminta OTP,kode rahasia,multi,15
+meminta PIN/CVV,minta pin,multi,10
+meminta PIN/CVV,kode pin,multi,10
+meminta PIN/CVV,cvv,multi,20
+meminta PIN/CVV,3 digit belakang kartu,multi,25
+meminta PIN/CVV,nomor kartu,multi,25
+meminta data pribadi,minta ktp,multi,25
+meminta data pribadi,data diri,multi,25
+meminta data pribadi,rekening,multi,25
+meminta data pribadi,akses kontak,multi,20
+meminta data pribadi,akses galeri,multi,15
+hadiah palsu,hadiah,multi,10
+hadiah palsu,menang undian,multi,20
+hadiah palsu,giveaway,multi,25
+hadiah palsu,klaim hadiah,multi,10
+hadiah palsu,pemenang,multi,20
+pinjol ilegal,pinjaman cepat,multi,25
+pinjol ilegal,dana cair,multi,20
+pinjol ilegal,tanpa bi checking,multi,10
+pinjol ilegal,pinjol,multi,15
+pinjol ilegal,akses kontak,multi,25
+transaksi luar aplikasi,di luar aplikasi,multi,10
+transaksi luar aplikasi,rekening pribadi,multi,10
+transaksi luar aplikasi,transfer langsung,multi,15
+transaksi luar aplikasi,admin personal,multi,20
+file APK,apk,multi,15
+file APK,file aplikasi,multi,15
+file APK,undangan apk,multi,20
+file APK,resi apk,multi,20
+file APK,tagihan apk,multi,20
+urgensi/ancaman,segera,multi,10
+urgensi/ancaman,1x24 jam,multi,10
+urgensi/ancaman,akun diblokir,multi,25
+urgensi/ancaman,terakhir hari ini,multi,25
+urgensi/ancaman,ancaman sebar data,multi,15
+biaya tidak wajar,biaya admin,multi,15
+biaya tidak wajar,pajak hadiah,multi,25
+biaya tidak wajar,biaya aktivasi,multi,15
+biaya tidak wajar,biaya training,multi,20
+biaya tidak wajar,bayar dulu,multi,10
+password lemah,tanggal lahir,multi,25
+password lemah,nama panggilan,multi,10
+password lemah,password sama,multi,25
+password lemah,mudah ditebak,multi,10
+password lemah,123456,multi,25
+kanal resmi,aplikasi resmi,multi,0
+kanal resmi,website resmi,multi,0
+kanal resmi,call center resmi,multi,0
+kanal resmi,cek langsung,multi,0
+kanal resmi,kontak resmi,multi,0

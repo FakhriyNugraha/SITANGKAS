@@ -2,7 +2,24 @@
   "permissions": {
     "allow": [
       "Bash(php -v)",
-      "Bash(mysql -uroot -e \"CREATE DATABASE IF NOT EXISTS sitangkas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")"
+      "Bash(mysql -uroot -e \"CREATE DATABASE IF NOT EXISTS sitangkas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
+      "Bash(php artisan *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/login)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/register)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/dashboard)",
+      "Bash(rm -f /tmp/cookies.txt)",
+      "Bash(curl -s -c /tmp/cookies.txt http://127.0.0.1:8765/login)",
+      "Bash(curl -v -b /tmp/cookies.txt -c /tmp/cookies.txt -X POST http://127.0.0.1:8765/simulations/3/answer --data-urlencode _token=AHCpOgbIYPuotACbq5LEKrOw4J4kAJItGKogJWHd --data-urlencode cyber_case_id=13 --data-urlencode selected_option_id=49 --data-urlencode 'reason_text=linknya aneh dan mendesak banget minta otp' --data-urlencode answer_time_seconds=15 -o /tmp/ans_resp.html)",
+      "Read(//tmp/**)",
+      "Bash(curl -sL -b /tmp/cookies.txt -c /tmp/cookies.txt -o /tmp/c.html -w \"%{http_code} \" \"http://127.0.0.1:8765/simulations/3\")",
+      "Bash(break)",
+      "Bash(sed -n 's/.*name=\"_token\"[^>]*value=\"\\\\\\([^\"]*\\\\\\)\".*/\\\\1/p' /tmp/c.html)",
+      "Bash(taskkill /F /IM php.exe)",
+      "PowerShell(Get-Process php -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force)",
+      "PowerShell(\"done\")"
     ]
   }
 }
