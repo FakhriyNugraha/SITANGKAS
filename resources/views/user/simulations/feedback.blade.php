@@ -1,55 +1,64 @@
 @extends('layouts.user')
 
+@php
+    $detected = $answer->detected_indicators ?? [];
+    $missed = $answer->missed_indicators ?? [];
+    $hasIndicators = count($detected) + count($missed) > 0;
+@endphp
+
 @section('content')
-<div class="max-w-3xl mx-auto pop-in">
-    <div class="card mb-4 {{ $answer->is_correct ? 'border-emerald-300 bg-emerald-50' : 'border-rose-300 bg-rose-50 shake' }}">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl {{ $answer->is_correct ? 'bg-emerald-200 text-emerald-700' : 'bg-rose-200 text-rose-700' }}">
-                {!! $answer->is_correct ? '✓' : '✕' !!}
-            </div>
-            <div>
-                <div class="font-bold text-lg">Jawaban kamu {{ $answer->is_correct ? 'benar' : 'kurang tepat' }}.</div>
-                <div class="text-sm text-navy-500">Skor kasus: <b>{{ $answer->case_score }}</b> (tindakan: {{ $answer->action_score }} · alasan: {{ $answer->fuzzy_score }})</div>
-            </div>
-        </div>
+<div class="max-w-2xl mx-auto bounce-in">
+    {{-- status --}}
+    <div class="u-card p-6 mb-4 text-center"
+         style="border:none;color:#fff;background:linear-gradient(135deg,{{ $answer->is_correct ? '#16a34a,#15803d' : '#dc2626,#b91c1c' }})">
+        <div class="text-5xl mb-2">{{ $answer->is_correct ? '🎉' : '😅' }}</div>
+        <div class="text-xl font-extrabold">{{ $answer->is_correct ? 'Tepat!' : 'Belum tepat' }}</div>
+        <div class="text-sm opacity-90 mt-1">Skor soal ini: {{ round($answer->case_score) }}/100</div>
     </div>
 
-    <div class="card mb-4">
-        <div class="text-xs uppercase tracking-wider text-navy-500 mb-1">Tindakan Benar</div>
-        <div class="font-semibold mb-3">{{ $case->correct_action }}</div>
+    {{-- tindakan benar --}}
+    <div class="u-card p-5 mb-4">
+        <div class="text-xs text-[#6b7896] uppercase tracking-wider mb-1">Tindakan paling aman</div>
+        <div class="font-bold mb-4">{{ $case->correct_action }}</div>
 
-        <div class="grid md:grid-cols-2 gap-4 mb-4">
-            <div>
-                <div class="text-xs uppercase tracking-wider text-emerald-700 mb-2">Indikator yang kamu kenali</div>
-                @forelse($answer->detected_indicators ?? [] as $d)
-                    <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs mr-1 mb-1">
-                        ✓ {{ $d['indicator'] }} <span class="text-emerald-600 text-[10px]">({{ round($d['similarity'] ?? 0) }}%)</span>
+        @if($hasIndicators)
+            @if(count($detected))
+                <div class="mb-3">
+                    <div class="text-xs font-semibold text-emerald-700 mb-2">✓ Hal berbahaya yang berhasil kamu kenali</div>
+                    <div class="flex flex-wrap gap-1.5">
+                        @foreach($detected as $d)
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">{{ $d['indicator'] }}</span>
+                        @endforeach
                     </div>
-                @empty
-                    <div class="text-navy-400 text-sm">Belum ada indikator yang dikenali.</div>
-                @endforelse
-            </div>
-            <div>
-                <div class="text-xs uppercase tracking-wider text-rose-700 mb-2">Belum kamu sebutkan</div>
-                @forelse($answer->missed_indicators ?? [] as $m)
-                    <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs mr-1 mb-1">
-                        ! {{ $m['indicator'] }}
-                    </div>
-                @empty
-                    <div class="text-emerald-600 text-sm">Mantap! Semua indikator terdeteksi.</div>
-                @endforelse
-            </div>
-        </div>
+                </div>
+            @endif
 
-        <div class="bg-navy-50 border border-navy-100 rounded-lg p-4">
-            <div class="text-xs uppercase tracking-wider text-orange-600 mb-1">Feedback Tutor</div>
-            <p class="text-sm leading-relaxed">{{ $case->tutor_feedback }}</p>
-        </div>
+            @if(count($missed))
+                <div class="mb-1">
+                    <div class="text-xs font-semibold text-rose-700 mb-2">Yang sebenarnya juga perlu diwaspadai</div>
+                    <div class="flex flex-wrap gap-1.5">
+                        @foreach($missed as $m)
+                            <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-medium border border-rose-200">{{ $m['indicator'] }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            @elseif(count($detected))
+                <div class="text-sm text-emerald-700 font-medium">👏 Mantap! Kamu mengenali semua tanda bahayanya.</div>
+            @endif
+        @else
+            <div class="text-sm text-[#6b7896]">Pesan ini tergolong aman, jadi tidak ada tanda bahaya khusus. Kuncinya: tetap tenang dan verifikasi bila ragu.</div>
+        @endif
     </div>
 
-    <form method="POST" action="{{ route('user.simulations.next', $session) }}" class="text-right">
+    {{-- penjelasan tutor --}}
+    <div class="u-card p-5 mb-5" style="background:#fff7ef;border-color:#f6d9b8">
+        <div class="text-xs font-bold text-[#c2611a] uppercase tracking-wider mb-1">💡 Penjelasan</div>
+        <p class="text-sm leading-relaxed text-[#41506b]">{{ $case->tutor_feedback }}</p>
+    </div>
+
+    <form method="POST" action="{{ route('user.simulations.next', $session) }}">
         @csrf
-        <button class="btn-primary">{{ $isLast ? 'Lihat Hasil Akhir →' : 'Kasus Berikutnya →' }}</button>
+        <button class="btn-primary w-full text-base py-3">{{ $isLast ? 'Lihat Hasil Level →' : 'Lanjut →' }}</button>
     </form>
 </div>
 @endsection

@@ -12,15 +12,10 @@
         </div>
         <nav class="px-3 py-4 flex-1 space-y-1 overflow-y-auto">
             <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'sidebar-link-active' : '' }}">Dashboard</a>
-            <a href="{{ route('admin.cases.index') }}" class="sidebar-link {{ request()->routeIs('admin.cases.*') ? 'sidebar-link-active' : '' }}">Kasus Simulasi</a>
-            <a href="{{ route('admin.indicators.index') }}" class="sidebar-link {{ request()->routeIs('admin.indicators.*') ? 'sidebar-link-active' : '' }}">Indikator Fuzzy</a>
-            <a href="{{ route('admin.materials.index') }}" class="sidebar-link {{ request()->routeIs('admin.materials.*') ? 'sidebar-link-active' : '' }}">Materi Edukasi</a>
-            <a href="{{ route('admin.knn.index') }}" class="sidebar-link {{ request()->routeIs('admin.knn.*') ? 'sidebar-link-active' : '' }}">Training KNN</a>
-            <a href="{{ route('admin.imports.index') }}" class="sidebar-link {{ request()->routeIs('admin.imports.*') ? 'sidebar-link-active' : '' }}">Import CSV</a>
-            <a href="{{ route('admin.results.index') }}" class="sidebar-link {{ request()->routeIs('admin.results.*') ? 'sidebar-link-active' : '' }}">Hasil User</a>
+            <a href="{{ route('admin.cases.index') }}" class="sidebar-link {{ request()->routeIs('admin.cases.*') ? 'sidebar-link-active' : '' }}">Kelola Kasus</a>
+            <a href="{{ route('admin.materials.index') }}" class="sidebar-link {{ request()->routeIs('admin.materials.*') ? 'sidebar-link-active' : '' }}">Kelola Materi</a>
+            <a href="{{ route('admin.results.index') }}" class="sidebar-link {{ request()->routeIs('admin.results.*') ? 'sidebar-link-active' : '' }}">Hasil Belajar User</a>
             <a href="{{ route('admin.reports.index') }}" class="sidebar-link {{ request()->routeIs('admin.reports.*') ? 'sidebar-link-active' : '' }}">Laporan</a>
-            <a href="{{ route('admin.settings.edit') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'sidebar-link-active' : '' }}">Pengaturan</a>
-            <a href="{{ route('user.dashboard') }}" class="sidebar-link">&lsaquo; Mode User</a>
         </nav>
         <div class="px-3 py-4 border-t border-white/10">
             <div class="text-xs text-navy-200 px-3 mb-2">{{ auth()->user()->name }}</div>

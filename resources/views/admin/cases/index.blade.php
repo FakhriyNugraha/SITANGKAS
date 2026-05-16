@@ -7,7 +7,6 @@
         <p class="text-navy-500 text-sm">Kelola bank skenario cyber awareness.</p>
     </div>
     <div class="flex gap-2">
-        <a href="{{ route('admin.imports.index') }}" class="btn-secondary">Import CSV</a>
         <a href="{{ route('admin.cases.create') }}" class="btn-primary">+ Tambah Kasus</a>
     </div>
 </div>

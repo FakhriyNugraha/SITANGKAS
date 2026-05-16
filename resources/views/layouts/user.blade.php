@@ -1,40 +1,59 @@
 @extends('layouts.app')
 
+@php
+    $path = app(\App\Services\LearningPathService::class);
+    $prog = auth()->check() ? $path->progress(auth()->user()) : ['done'=>0,'total'=>10];
+@endphp
+
 @section('body')
-<div class="min-h-screen flex flex-col md:flex-row">
-    {{-- Sidebar --}}
-    <aside class="navy-gradient text-white md:w-64 md:min-h-screen md:sticky md:top-0 flex md:flex-col">
-        <div class="px-5 py-5 flex items-center gap-3 border-b border-white/10">
-            <div class="w-9 h-9 orange-gradient rounded-lg flex items-center justify-center font-bold shield-glow">S</div>
-            <div>
-                <div class="font-bold text-lg leading-none">SITANGKAS</div>
-                <div class="text-[10px] text-navy-200 tracking-wider uppercase">Cyber Awareness</div>
+<div class="min-h-screen learn-bg">
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-[#e7ecf5]">
+        <div class="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
+            <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2">
+                <div class="w-8 h-8 orange-gradient rounded-xl flex items-center justify-center text-white font-bold text-sm">S</div>
+                <span class="font-extrabold tracking-tight">SITANGKAS</span>
+            </a>
+
+            <nav class="hidden sm:flex items-center gap-1 ml-2">
+                <a href="{{ route('user.dashboard') }}" class="u-nav-link {{ request()->routeIs('user.dashboard') ? 'u-nav-active' : '' }}">Beranda</a>
+                <a href="{{ route('user.levels.index') }}" class="u-nav-link {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'u-nav-active' : '' }}">Belajar</a>
+                <a href="{{ route('user.materials.index') }}" class="u-nav-link {{ request()->routeIs('user.materials.*') ? 'u-nav-active' : '' }}">Materi</a>
+                <a href="{{ route('user.history.index') }}" class="u-nav-link {{ request()->routeIs('user.history.*') ? 'u-nav-active' : '' }}">Riwayat</a>
+            </nav>
+
+            <div class="ml-auto flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-[#c2611a] bg-[#fff3e6] px-3 py-1.5 rounded-full">
+                    <span>⭐</span> {{ $prog['done'] }}/{{ $prog['total'] }} level
+                </div>
+                <div x-data="{o:false}" class="relative">
+                    <button @click="o=!o" class="w-8 h-8 rounded-full bg-[#1b2a4a] text-white text-xs font-bold flex items-center justify-center">
+                        {{ strtoupper(substr(auth()->user()->name,0,1)) }}
+                    </button>
+                    <div x-show="o" @click.outside="o=false" x-cloak class="absolute right-0 mt-2 w-44 bg-white border border-[#e7ecf5] rounded-xl shadow-lg py-1 text-sm">
+                        <div class="px-3 py-2 text-xs text-[#6b7896] border-b border-[#eef2f7]">{{ auth()->user()->name }}</div>
+                        <form method="POST" action="{{ route('logout') }}">@csrf
+                            <button class="w-full text-left px-3 py-2 hover:bg-[#f6f8fc]">Keluar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <nav class="px-3 py-4 flex-1 space-y-1">
-            <a href="{{ route('user.dashboard') }}" class="sidebar-link {{ request()->routeIs('user.dashboard') ? 'sidebar-link-active' : '' }}">Dashboard</a>
-            <a href="{{ route('user.simulations.index') }}" class="sidebar-link {{ request()->routeIs('user.simulations.*') ? 'sidebar-link-active' : '' }}">Simulasi</a>
-            <a href="{{ route('user.materials.index') }}" class="sidebar-link {{ request()->routeIs('user.materials.*') ? 'sidebar-link-active' : '' }}">Materi</a>
-            <a href="{{ route('user.history.index') }}" class="sidebar-link {{ request()->routeIs('user.history.*') ? 'sidebar-link-active' : '' }}">Riwayat</a>
-            @if(auth()->user()->isAdmin())
-                <a href="{{ route('admin.dashboard') }}" class="sidebar-link">Panel Admin &rsaquo;</a>
-            @endif
-        </nav>
-        <div class="px-3 py-4 border-t border-white/10">
-            <div class="text-xs text-navy-200 px-3 mb-2">{{ auth()->user()->name }}</div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="sidebar-link w-full text-left">Keluar</button>
-            </form>
-        </div>
-    </aside>
 
-    <main class="flex-1 px-4 sm:px-8 py-6 max-w-full">
+        {{-- nav mobile --}}
+        <nav class="sm:hidden flex items-center justify-around border-t border-[#eef2f7] text-xs py-1.5">
+            <a href="{{ route('user.dashboard') }}" class="px-3 py-1 {{ request()->routeIs('user.dashboard') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Beranda</a>
+            <a href="{{ route('user.levels.index') }}" class="px-3 py-1 {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Belajar</a>
+            <a href="{{ route('user.materials.index') }}" class="px-3 py-1 {{ request()->routeIs('user.materials.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Materi</a>
+            <a href="{{ route('user.history.index') }}" class="px-3 py-1 {{ request()->routeIs('user.history.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Riwayat</a>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6">
         @if(session('status'))
-            <div class="mb-4 px-4 py-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm">{{ session('status') }}</div>
+            <div class="mb-4 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm bounce-in">{{ session('status') }}</div>
         @endif
         @if($errors->any())
-            <div class="mb-4 px-4 py-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-sm">
+            <div class="mb-4 px-4 py-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm">
                 @foreach($errors->all() as $err)<div>{{ $err }}</div>@endforeach
             </div>
         @endif
@@ -42,4 +61,6 @@
         @yield('content')
     </main>
 </div>
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<style>[x-cloak]{display:none!important}</style>
 @endsection

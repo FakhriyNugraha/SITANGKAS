@@ -1,65 +1,203 @@
 indikator_normal,kata_kunci_variasi,kategori_relevan,bobot_risiko
-link tidak resmi,link aneh,multi,10
-link tidak resmi,tautan palsu,multi,10
-link tidak resmi,url palsu,multi,15
-link tidak resmi,alamat web mencurigakan,multi,25
-link tidak resmi,domain bukan resmi,multi,25
-link tidak resmi,web abal abal,multi,25
-domain mencurigakan,domain aneh,multi,20
-domain mencurigakan,alamat situs mirip,multi,15
-domain mencurigakan,bukan situs resmi,multi,20
-domain mencurigakan,website tiruan,multi,20
-meminta OTP,minta otp,multi,20
-meminta OTP,kode otp,multi,10
-meminta OTP,kode verifikasi,multi,10
-meminta OTP,6 digit kode,multi,15
-meminta OTP,kode rahasia,multi,15
-meminta PIN/CVV,minta pin,multi,10
-meminta PIN/CVV,kode pin,multi,10
-meminta PIN/CVV,cvv,multi,20
-meminta PIN/CVV,3 digit belakang kartu,multi,25
-meminta PIN/CVV,nomor kartu,multi,25
-meminta data pribadi,minta ktp,multi,25
-meminta data pribadi,data diri,multi,25
-meminta data pribadi,rekening,multi,25
-meminta data pribadi,akses kontak,multi,20
-meminta data pribadi,akses galeri,multi,15
-hadiah palsu,hadiah,multi,10
-hadiah palsu,menang undian,multi,20
-hadiah palsu,giveaway,multi,25
-hadiah palsu,klaim hadiah,multi,10
-hadiah palsu,pemenang,multi,20
-pinjol ilegal,pinjaman cepat,multi,25
-pinjol ilegal,dana cair,multi,20
-pinjol ilegal,tanpa bi checking,multi,10
-pinjol ilegal,pinjol,multi,15
-pinjol ilegal,akses kontak,multi,25
-transaksi luar aplikasi,di luar aplikasi,multi,10
-transaksi luar aplikasi,rekening pribadi,multi,10
-transaksi luar aplikasi,transfer langsung,multi,15
-transaksi luar aplikasi,admin personal,multi,20
-file APK,apk,multi,15
-file APK,file aplikasi,multi,15
-file APK,undangan apk,multi,20
-file APK,resi apk,multi,20
-file APK,tagihan apk,multi,20
-urgensi/ancaman,segera,multi,10
-urgensi/ancaman,1x24 jam,multi,10
-urgensi/ancaman,akun diblokir,multi,25
-urgensi/ancaman,terakhir hari ini,multi,25
-urgensi/ancaman,ancaman sebar data,multi,15
-biaya tidak wajar,biaya admin,multi,15
-biaya tidak wajar,pajak hadiah,multi,25
-biaya tidak wajar,biaya aktivasi,multi,15
-biaya tidak wajar,biaya training,multi,20
-biaya tidak wajar,bayar dulu,multi,10
-password lemah,tanggal lahir,multi,25
-password lemah,nama panggilan,multi,10
-password lemah,password sama,multi,25
-password lemah,mudah ditebak,multi,10
-password lemah,123456,multi,25
-kanal resmi,aplikasi resmi,multi,0
-kanal resmi,website resmi,multi,0
-kanal resmi,call center resmi,multi,0
-kanal resmi,cek langsung,multi,0
-kanal resmi,kontak resmi,multi,0
+link tidak resmi,link tidak resmi,phishing_link,15
+link tidak resmi,link aneh,phishing_link,15
+link tidak resmi,linknya aneh,phishing_link,15
+link tidak resmi,link nya aneh,phishing_link,15
+link tidak resmi,link mencurigakan,phishing_link,15
+link tidak resmi,link palsu,phishing_link,15
+link tidak resmi,tautan palsu,phishing_link,15
+link tidak resmi,tautan aneh,phishing_link,15
+link tidak resmi,tautan mencurigakan,phishing_link,15
+link tidak resmi,url palsu,phishing_link,15
+link tidak resmi,url aneh,phishing_link,15
+link tidak resmi,alamat web mencurigakan,phishing_link,15
+link tidak resmi,link tidak dikenal,phishing_link,15
+link tidak resmi,link asing,phishing_link,15
+link tidak resmi,link bukan resmi,phishing_link,15
+link tidak resmi,link gak jelas,phishing_link,15
+link tidak resmi,link ga jelas,phishing_link,15
+link tidak resmi,linkny mencurigakan,phishing_link,15
+link tidak resmi,link nya palsu,phishing_link,15
+domain mencurigakan,domain mencurigakan,phishing_link,15
+domain mencurigakan,domain aneh,phishing_link,15
+domain mencurigakan,domain palsu,phishing_link,15
+domain mencurigakan,domain bukan resmi,phishing_link,15
+domain mencurigakan,domainnya aneh,phishing_link,15
+domain mencurigakan,alamat situs aneh,phishing_link,15
+domain mencurigakan,website palsu,phishing_link,15
+domain mencurigakan,situs palsu,phishing_link,15
+domain mencurigakan,situs tiruan,phishing_link,15
+domain mencurigakan,bukan situs asli,phishing_link,15
+domain mencurigakan,alamatnya beda,phishing_link,15
+domain mencurigakan,domain tiruan,phishing_link,15
+short url mencurigakan,short url mencurigakan,phishing_link,10
+short url mencurigakan,link dipendekkan,phishing_link,10
+short url mencurigakan,tautan dipendekkan,phishing_link,10
+short url mencurigakan,url pendek,phishing_link,10
+short url mencurigakan,link pendek,phishing_link,10
+short url mencurigakan,pakai bitly,phishing_link,10
+short url mencurigakan,bit ly,phishing_link,10
+meminta OTP,meminta otp,otp_fraud,20
+meminta OTP,minta otp,otp_fraud,20
+meminta OTP,minta kode otp,otp_fraud,20
+meminta OTP,kode otp,otp_fraud,20
+meminta OTP,kode verifikasi,otp_fraud,20
+meminta OTP,kasih otp,otp_fraud,20
+meminta OTP,kirim otp,otp_fraud,20
+meminta OTP,kirim kode,otp_fraud,20
+meminta OTP,sebutkan otp,otp_fraud,20
+meminta OTP,minta kode verifikasi,otp_fraud,20
+meminta OTP,minta kode rahasia,otp_fraud,20
+meminta OTP,otp tidak boleh diberikan,otp_fraud,20
+meminta OTP,otp rahasia,otp_fraud,20
+meminta OTP,minta kode sms,otp_fraud,20
+meminta PIN,meminta pin,otp_fraud,20
+meminta PIN,minta pin,otp_fraud,20
+meminta PIN,kode pin,otp_fraud,20
+meminta PIN,pin atm,otp_fraud,20
+meminta PIN,minta pin atm,otp_fraud,20
+meminta PIN,pin rahasia,otp_fraud,20
+meminta CVV,meminta cvv,otp_fraud,20
+meminta CVV,minta cvv,otp_fraud,20
+meminta CVV,kode cvv,otp_fraud,20
+meminta CVV,cvv kartu,otp_fraud,20
+meminta CVV,nomor belakang kartu,otp_fraud,20
+mengaku petugas,mengaku petugas,otp_fraud,15
+mengaku petugas,ngaku petugas,otp_fraud,15
+mengaku petugas,mengaku bank,otp_fraud,15
+mengaku petugas,ngaku dari bank,otp_fraud,15
+mengaku petugas,mengaku cs,otp_fraud,15
+mengaku petugas,pura pura petugas,otp_fraud,15
+mengaku petugas,ngaku admin,otp_fraud,15
+mengaku petugas,mengaku customer service,otp_fraud,15
+mengaku petugas,sok jadi petugas,otp_fraud,15
+mengaku petugas,berpura pura petugas resmi,otp_fraud,15
+hadiah palsu,hadiah palsu,fake_giveaway,15
+hadiah palsu,hadiah tidak masuk akal,fake_giveaway,15
+hadiah palsu,menang undian,fake_giveaway,15
+hadiah palsu,menang hadiah,fake_giveaway,15
+hadiah palsu,dapat hadiah,fake_giveaway,15
+hadiah palsu,iming iming hadiah,fake_giveaway,15
+hadiah palsu,hadiah bohongan,fake_giveaway,15
+hadiah palsu,undian palsu,fake_giveaway,15
+hadiah palsu,giveaway palsu,fake_giveaway,15
+hadiah palsu,hadiah jebakan,fake_giveaway,15
+hadiah palsu,modus hadiah,fake_giveaway,15
+hadiah palsu,hadiah gak jelas,fake_giveaway,15
+tekanan waktu,tekanan waktu,phishing_link,15
+tekanan waktu,mendesak,phishing_link,15
+tekanan waktu,terburu buru,phishing_link,15
+tekanan waktu,buru buru,phishing_link,15
+tekanan waktu,segera,phishing_link,10
+tekanan waktu,harus cepat,phishing_link,15
+tekanan waktu,sekarang juga,phishing_link,10
+tekanan waktu,tenggat waktu,phishing_link,15
+tekanan waktu,batas waktu,phishing_link,15
+tekanan waktu,24 jam,phishing_link,10
+tekanan waktu,1x24 jam,phishing_link,10
+tekanan waktu,sebelum diblokir,phishing_link,15
+tekanan waktu,memaksa cepat,phishing_link,15
+tekanan waktu,bikin panik,phishing_link,15
+tekanan waktu,menakut nakuti,phishing_link,15
+password lemah,password lemah,password_security,20
+password lemah,password mudah ditebak,password_security,20
+password lemah,password gampang ditebak,password_security,20
+password lemah,password gampang,password_security,20
+password lemah,password terlalu umum,password_security,20
+password lemah,pakai tanggal lahir,password_security,15
+password lemah,pakai nama sendiri,password_security,15
+password lemah,password 123456,password_security,15
+password lemah,password berulang,password_security,15
+password lemah,password sama semua akun,password_security,15
+password lemah,password pendek,password_security,15
+password lemah,password tidak kuat,password_security,20
+password lemah,sandi lemah,password_security,20
+password lemah,kata sandi gampang,password_security,20
+transaksi luar aplikasi,transaksi luar aplikasi,marketplace_scam,20
+transaksi luar aplikasi,transaksi di luar aplikasi,marketplace_scam,20
+transaksi luar aplikasi,transfer di luar aplikasi,marketplace_scam,20
+transaksi luar aplikasi,bayar di luar aplikasi,marketplace_scam,20
+transaksi luar aplikasi,bayar di luar platform,marketplace_scam,20
+transaksi luar aplikasi,transfer langsung,marketplace_scam,15
+transaksi luar aplikasi,transfer manual,marketplace_scam,15
+transaksi luar aplikasi,di luar shopee,marketplace_scam,15
+transaksi luar aplikasi,di luar tokopedia,marketplace_scam,15
+transaksi luar aplikasi,keluar dari aplikasi resmi,marketplace_scam,20
+transaksi luar aplikasi,tidak lewat aplikasi,marketplace_scam,20
+transaksi luar aplikasi,tanpa rekening bersama,marketplace_scam,15
+harga tidak wajar,harga tidak wajar,marketplace_scam,15
+harga tidak wajar,harga terlalu murah,marketplace_scam,15
+harga tidak wajar,harga murah banget,marketplace_scam,15
+harga tidak wajar,terlalu murah,marketplace_scam,15
+harga tidak wajar,diskon mencurigakan,marketplace_scam,15
+harga tidak wajar,harga gak masuk akal,marketplace_scam,15
+harga tidak wajar,murah tidak masuk akal,marketplace_scam,15
+pinjol ilegal,pinjol ilegal,pinjol_ilegal,20
+pinjol ilegal,pinjaman ilegal,pinjol_ilegal,20
+pinjol ilegal,pinjaman online ilegal,pinjol_ilegal,20
+pinjol ilegal,tidak terdaftar ojk,pinjol_ilegal,20
+pinjol ilegal,tidak ada izin ojk,pinjol_ilegal,20
+pinjol ilegal,bukan pinjol resmi,pinjol_ilegal,20
+pinjol ilegal,aplikasi pinjol mencurigakan,pinjol_ilegal,20
+pinjol ilegal,pinjaman tidak resmi,pinjol_ilegal,20
+pinjol ilegal,pinjol abal abal,pinjol_ilegal,20
+akses berlebihan,akses berlebihan,pinjol_ilegal,15
+akses berlebihan,minta akses kontak,pinjol_ilegal,15
+akses berlebihan,minta akses galeri,pinjol_ilegal,15
+akses berlebihan,akses galeri,pinjol_ilegal,15
+akses berlebihan,izin berlebihan,pinjol_ilegal,15
+akses berlebihan,data pribadi berlebihan,pinjol_ilegal,15
+akses berlebihan,minta banyak izin,pinjol_ilegal,15
+akses berlebihan,akses seluruh hp,pinjol_ilegal,15
+file apk mencurigakan,file apk mencurigakan,apk_malware,20
+file apk mencurigakan,file apk,apk_malware,20
+file apk mencurigakan,apk dari chat,apk_malware,20
+file apk mencurigakan,kirim apk,apk_malware,20
+file apk mencurigakan,undangan apk,apk_malware,20
+file apk mencurigakan,file apk palsu,apk_malware,20
+file apk mencurigakan,instal apk sembarangan,apk_malware,20
+file apk mencurigakan,install di luar playstore,apk_malware,20
+file apk mencurigakan,aplikasi bukan dari playstore,apk_malware,20
+file apk mencurigakan,unduh apk asing,apk_malware,20
+file apk mencurigakan,apk berbahaya,apk_malware,20
+file apk mencurigakan,lampiran apk,apk_malware,20
+biaya pendaftaran,biaya pendaftaran,job_scam,15
+biaya pendaftaran,minta biaya admin,job_scam,15
+biaya pendaftaran,bayar pendaftaran kerja,job_scam,15
+biaya pendaftaran,biaya seragam di depan,job_scam,15
+biaya pendaftaran,bayar dulu di awal,job_scam,15
+biaya pendaftaran,minta uang pendaftaran,job_scam,15
+biaya pendaftaran,bayar biaya pelatihan,job_scam,15
+rekening pribadi,rekening pribadi,marketplace_scam,15
+rekening pribadi,transfer ke rekening pribadi,marketplace_scam,15
+rekening pribadi,nomor rekening pribadi,marketplace_scam,15
+rekening pribadi,rekening atas nama orang,marketplace_scam,15
+rekening pribadi,bukan rekening perusahaan,marketplace_scam,15
+qris palsu,qris palsu,qris_scam,15
+qris palsu,qris tidak sesuai,qris_scam,15
+qris palsu,qris diganti,qris_scam,15
+qris palsu,scan qris palsu,qris_scam,15
+qris palsu,nama merchant beda,qris_scam,15
+bukti transfer palsu,bukti transfer palsu,qris_scam,15
+bukti transfer palsu,bukti tf palsu,qris_scam,15
+bukti transfer palsu,bukti transfer editan,qris_scam,15
+bukti transfer palsu,struk palsu,qris_scam,15
+bukti transfer palsu,bukti bayar bohongan,qris_scam,15
+data pribadi sensitif,data pribadi sensitif,phishing_link,15
+data pribadi sensitif,minta data pribadi,phishing_link,15
+data pribadi sensitif,minta ktp,phishing_link,15
+data pribadi sensitif,minta foto ktp,phishing_link,15
+data pribadi sensitif,minta nomor rekening,phishing_link,15
+data pribadi sensitif,minta nomor kartu,phishing_link,15
+data pribadi sensitif,minta data rahasia,phishing_link,15
+data pribadi sensitif,bagikan data pribadi,phishing_link,15
+minta login,minta login,phishing_link,15
+minta login,disuruh login,phishing_link,15
+minta login,login lewat link,phishing_link,15
+minta login,masukin password di link,phishing_link,15
+minta login,form login palsu,phishing_link,15
+nomor tidak dikenal,nomor tidak dikenal,phishing_link,10
+nomor tidak dikenal,nomor asing,phishing_link,10
+nomor tidak dikenal,pengirim tidak dikenal,phishing_link,10
+nomor tidak dikenal,kontak asing,phishing_link,10
+nomor tidak dikenal,dari orang tidak dikenal,phishing_link,10

@@ -1,22 +1,21 @@
 @extends('layouts.user')
 
 @section('content')
-<div class="max-w-3xl mx-auto">
-    <a href="{{ route('user.materials.index') }}" class="text-navy-500 text-sm">&lsaquo; Kembali ke daftar materi</a>
-    <div class="card mt-3 pop-in">
-        <div class="text-xs uppercase tracking-wider text-orange-600 mb-2">{{ $categoryMap[$material->category] ?? $material->category }}</div>
-        <h1 class="text-2xl font-bold mb-2">{{ $material->title }}</h1>
-        <div class="flex items-center gap-2 mb-5">
-            <span class="badge badge-{{ $material->target_level === 'all' ? 'mencurigakan' : $material->target_level }}">{{ $material->target_level }}</span>
+<div class="max-w-2xl mx-auto">
+    <a href="{{ route('user.materials.index') }}" class="text-sm text-[#6b7896]">← Daftar materi</a>
+
+    <div class="u-card p-6 mt-3 bounce-in">
+        <div class="text-xs uppercase tracking-wider text-[#e67e22] mb-1">{{ $categoryMap[$material->category] ?? $material->category }}</div>
+        <h1 class="text-2xl font-extrabold mb-1">{{ $material->title }}</h1>
+        <p class="text-[#6b7896] mb-5">{{ $material->summary }}</p>
+        <div class="text-[15px]">
+            {!! \App\Support\MaterialFormatter::toHtml($material->content) !!}
         </div>
-
-        <p class="text-navy-600 italic mb-5">{{ $material->summary }}</p>
-
-        <div class="prose prose-sm max-w-none text-navy-700 leading-relaxed whitespace-pre-line">{{ $material->content }}</div>
     </div>
+
     <div class="mt-4 flex gap-2">
-        <a href="{{ route('user.simulations.index') }}" class="btn-primary">Coba Simulasi Terkait</a>
-        <a href="{{ route('user.materials.index') }}" class="btn-secondary">Materi Lainnya</a>
+        <a href="{{ route('user.levels.index') }}" class="btn-primary">Ke Jalur Belajar</a>
+        <a href="{{ route('user.materials.index') }}" class="btn-secondary">Materi Lain</a>
     </div>
 </div>
 @endsection

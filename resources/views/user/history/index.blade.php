@@ -1,38 +1,42 @@
 @extends('layouts.user')
 
 @section('content')
-<div class="mb-6">
-    <h1 class="text-2xl font-bold">Riwayat Latihan</h1>
-    <p class="text-navy-500 text-sm">Semua sesi simulasi yang pernah Anda jalankan.</p>
+<div class="mb-5">
+    <h1 class="text-xl font-extrabold">Riwayat Latihan</h1>
+    <p class="text-sm text-[#6b7896]">Catatan sesi belajar yang sudah kamu jalani.</p>
 </div>
 
-<div class="card overflow-x-auto">
-    <table class="table-base">
-        <thead><tr>
-            <th>Tanggal</th><th>Mode</th><th>Kasus</th><th>Skor</th><th>Level</th><th>Status</th><th></th>
-        </tr></thead>
-        <tbody>
-            @forelse($sessions as $s)
-                <tr>
-                    <td class="text-navy-500 text-xs">{{ optional($s->started_at)->format('d M Y H:i') }}</td>
-                    <td class="capitalize">{{ $s->mode }}{{ $s->selected_category ? ' · '.($categoryMap[$s->selected_category] ?? $s->selected_category) : '' }}</td>
-                    <td>{{ $s->completed_cases }}/{{ $s->total_cases }}</td>
-                    <td class="font-bold">{{ $s->total_score }}</td>
-                    <td>@if($s->awarenessScore)<span class="badge badge-{{ $s->awarenessScore->awareness_level }}">{{ $s->awarenessScore->awareness_level }}</span>@else &mdash; @endif</td>
-                    <td><span class="badge badge-{{ $s->status === 'completed' ? 'advanced' : 'mencurigakan' }}">{{ $s->status }}</span></td>
-                    <td>
-                        @if($s->status === 'completed')
-                            <a class="text-orange-600 font-semibold" href="{{ route('user.history.show', $s) }}">Detail</a>
-                        @else
-                            <a class="text-orange-600 font-semibold" href="{{ route('user.simulations.show', $s) }}">Lanjutkan</a>
-                        @endif
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="7" class="text-center text-navy-400 py-6">Belum ada riwayat. <a href="{{ route('user.simulations.index') }}" class="text-orange-600">Mulai sekarang</a>.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
+<div class="space-y-2">
+    @forelse($sessions as $s)
+        @php
+            $sc = round($s->total_score);
+            $stars = $sc >= 85 ? 3 : ($sc >= 65 ? 2 : ($sc >= 1 ? 1 : 0));
+        @endphp
+        <div class="u-card p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#fff3e6] text-[#c2611a] flex items-center justify-center font-bold" style="flex:none">
+                {{ $sc }}
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="font-bold text-sm">{{ $categoryMap[$s->selected_category] ?? ucfirst($s->mode) }}</div>
+                <div class="text-xs text-[#6b7896]">
+                    {{ optional($s->started_at)->format('d M Y H:i') }} ·
+                    {{ $s->completed_cases }}/{{ $s->total_cases }} soal
+                </div>
+            </div>
+            <div class="text-right">
+                @if($s->status === 'completed')
+                    <div class="text-sm">{!! str_repeat('⭐', $stars) !!}</div>
+                    <a class="text-xs text-[#e67e22] font-semibold" href="{{ route('user.history.show', $s) }}">Lihat detail</a>
+                @else
+                    <a class="text-xs text-[#e67e22] font-semibold" href="{{ route('user.simulations.show', $s) }}">Lanjutkan</a>
+                @endif
+            </div>
+        </div>
+    @empty
+        <div class="u-card p-8 text-center text-[#6b7896]">
+            Belum ada riwayat. <a href="{{ route('user.levels.index') }}" class="text-[#e67e22] font-semibold">Mulai belajar</a>.
+        </div>
+    @endforelse
 </div>
 <div class="mt-4">{{ $sessions->links() }}</div>
 @endsection

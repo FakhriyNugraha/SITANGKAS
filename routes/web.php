@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\User\HistoryController;
+use App\Http\Controllers\User\LevelController;
 use App\Http\Controllers\User\MaterialController;
 use App\Http\Controllers\User\SimulationController;
 use App\Http\Controllers\User\UserDashboardController;
@@ -28,11 +29,14 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::middleware(['auth', 'role:user,admin'])->group(function () {
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
-    Route::get('/simulations', [SimulationController::class, 'index'])->name('user.simulations.index');
-    Route::post('/simulations/start', [SimulationController::class, 'start'])->name('user.simulations.start');
+    Route::get('/belajar', [LevelController::class, 'index'])->name('user.levels.index');
+    Route::get('/belajar/{category}', [LevelController::class, 'show'])->name('user.levels.show');
+    Route::post('/belajar/{category}/mulai', [LevelController::class, 'start'])->name('user.levels.start');
+
+    Route::get('/simulations', fn () => redirect()->route('user.levels.index'))->name('user.simulations.index');
     Route::get('/simulations/{simulation}', [SimulationController::class, 'show'])->name('user.simulations.show');
     Route::post('/simulations/{simulation}/answer', [SimulationController::class, 'answer'])->name('user.simulations.answer');
     Route::get('/simulations/{simulation}/feedback/{case}', [SimulationController::class, 'feedback'])->name('user.simulations.feedback');

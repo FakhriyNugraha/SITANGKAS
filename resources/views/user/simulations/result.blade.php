@@ -1,109 +1,100 @@
 @extends('layouts.user')
 
+@php
+    $path = app(\App\Services\LearningPathService::class);
+    $cat = $session->selected_category;
+    $levels = $path->forUser($session->user);
+    $curIdx = collect($levels)->search(fn ($l) => $l['category'] === $cat);
+    $curLevel = $curIdx !== false ? $levels[$curIdx] : null;
+    $nextLevel = ($curIdx !== false && isset($levels[$curIdx + 1])) ? $levels[$curIdx + 1] : null;
+
+    $score = round($session->total_score);
+    $correct = $session->answers->where('is_correct', true)->count();
+    $total = $session->answers->count();
+    $stars = $score >= 85 ? 3 : ($score >= 65 ? 2 : ($score >= 1 ? 1 : 0));
+
+    [$mood, $title, $desc] = match (true) {
+        $score >= 85 => ['🏆', 'Luar biasa!', 'Kamu sangat tanggap menghadapi modus ini.'],
+        $score >= 65 => ['👍', 'Bagus!', 'Pemahamanmu sudah cukup baik, sedikit lagi sempurna.'],
+        $score >= 40 => ['💪', 'Terus berlatih', 'Beberapa tanda bahaya masih terlewat. Ulangi untuk lebih mantap.'],
+        default => ['📚', 'Jangan menyerah', 'Pelajari lagi materinya, lalu coba sekali lagi ya.'],
+    };
+@endphp
+
 @section('content')
-<div class="max-w-4xl mx-auto pop-in">
-    <div class="card navy-gradient text-white mb-5 scan-line-bg">
-        <div class="text-xs uppercase tracking-wider text-orange-200 mb-2">Hasil Sesi #{{ $session->id }}</div>
-        @if($awareness)
-            <div class="flex flex-wrap items-end justify-between gap-4">
-                <div>
-                    <div class="text-sm text-navy-100 mb-1">Level Cyber Awareness Kamu</div>
-                    <div class="text-5xl font-extrabold count-up capitalize">{{ $awareness->awareness_level }}</div>
-                </div>
-                <div class="text-right">
-                    <div class="text-sm text-navy-100 mb-1">Skor Total</div>
-                    <div class="text-4xl font-extrabold count-up text-orange-300">{{ $session->total_score }}</div>
-                </div>
+<div class="max-w-2xl mx-auto">
+    {{-- header hasil: solid, jelas, tanpa animasi mengganggu --}}
+    <div class="u-card p-7 mb-5 text-center bounce-in" style="border:none;color:#fff;background:linear-gradient(135deg,#1b2a4a,#243b63)">
+        <div class="text-5xl mb-2">{{ $mood }}</div>
+        <h1 class="text-2xl font-extrabold">{{ $title }}</h1>
+        <p class="text-sm text-[#c7d2e6] mt-1">{{ $desc }}</p>
+
+        <div class="text-3xl mt-4 tracking-widest">
+            {!! str_repeat('⭐', $stars) !!}<span class="opacity-30">{!! str_repeat('⭐', 3 - $stars) !!}</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-5 max-w-xs mx-auto">
+            <div class="bg-white/10 rounded-xl py-3">
+                <div class="text-2xl font-extrabold">{{ $score }}</div>
+                <div class="text-[11px] text-[#c7d2e6] uppercase tracking-wider">Skor</div>
             </div>
-            <p class="text-navy-100 text-sm mt-3">{{ $tutorSummary }}</p>
-        @else
-            <div class="text-2xl font-bold">Sesi belum memiliki klasifikasi.</div>
-        @endif
+            <div class="bg-white/10 rounded-xl py-3">
+                <div class="text-2xl font-extrabold">{{ $correct }}/{{ $total }}</div>
+                <div class="text-[11px] text-[#c7d2e6] uppercase tracking-wider">Jawaban Benar</div>
+            </div>
+        </div>
     </div>
 
-    @if($awareness)
-        <div class="card mb-5">
-            <div class="font-semibold mb-3">Skor per Kategori (Feature KNN)</div>
-            <div class="grid md:grid-cols-5 gap-3 text-sm">
-                @foreach(['phishing_score'=>'Phishing','otp_score'=>'OTP','password_score'=>'Password','marketplace_score'=>'Marketplace','pinjol_score'=>'Pinjol'] as $f => $label)
-                    <div>
-                        <div class="flex justify-between mb-1"><span class="text-navy-500 text-xs">{{ $label }}</span><b>{{ round($awareness->{$f}) }}</b></div>
-                        <div class="progress-track"><div class="progress-bar" style="width: {{ min(100, $awareness->{$f}) }}%"></div></div>
-                    </div>
-                @endforeach
-            </div>
-
-            @if(! empty($awareness->knn_neighbors))
-                <details class="mt-4 text-sm">
-                    <summary class="cursor-pointer text-orange-600 font-semibold">Lihat 3 tetangga KNN terdekat</summary>
-                    <table class="table-base mt-2 text-xs">
-                        <thead><tr><th>Profile</th><th>Level</th><th>Distance</th></tr></thead>
-                        <tbody>
-                            @foreach($awareness->knn_neighbors as $n)
-                                <tr>
-                                    <td>{{ $n['profile_code'] ?? '-' }}</td>
-                                    <td><span class="badge badge-{{ $n['level'] }}">{{ $n['level'] }}</span></td>
-                                    <td>{{ $n['distance'] }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </details>
-            @endif
+    {{-- ringkasan tiap soal --}}
+    <div class="u-card p-5 mb-5">
+        <div class="font-bold mb-3">Ringkasan Latihan</div>
+        <div class="space-y-2">
+            @foreach($session->answers as $i => $a)
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-[#f6f8fc]">
+                    <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs {{ $a->is_correct ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
+                        {{ $a->is_correct ? '✓' : '✕' }}
+                    </span>
+                    <div class="flex-1 min-w-0 text-sm truncate">Soal {{ $i + 1 }} · {{ \Illuminate\Support\Str::limit($a->cyberCase->scenario_text, 60) }}</div>
+                    <span class="text-xs font-bold text-[#6b7896]">{{ round($a->case_score) }}</span>
+                </div>
+            @endforeach
         </div>
-    @endif
+    </div>
 
-    @if(! empty($weakCategories))
-        <div class="card mb-5 border-orange-200">
-            <div class="font-semibold mb-2">Kategori yang Masih Perlu Latihan</div>
-            <div class="flex flex-wrap gap-2">
-                @foreach($weakCategories as $w)
-                    <span class="badge badge-mencurigakan">{{ $categoryMap[$w] ?? $w }}</span>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
-    @if(! empty($recommendations))
-        <div class="card mb-5">
-            <div class="font-semibold mb-3">Materi Rekomendasi untuk Kamu</div>
-            <div class="grid md:grid-cols-2 gap-3">
-                @foreach($recommendations as $m)
-                    <a href="{{ route('user.materials.show', $m) }}" class="card card-hover block">
-                        <div class="text-xs uppercase text-orange-600 mb-1">{{ $categoryMap[$m->category] ?? $m->category }}</div>
-                        <div class="font-semibold mb-1">{{ $m->title }}</div>
-                        <p class="text-xs text-navy-500">{{ \Illuminate\Support\Str::limit($m->summary, 100) }}</p>
+    {{-- materi yang disarankan kalau skor belum bagus --}}
+    @if($score < 75 && ! empty($recommendations))
+        <div class="u-card p-5 mb-5" style="background:#fff7ef;border-color:#f6d9b8">
+            <div class="text-sm font-bold text-[#c2611a] mb-2">📖 Disarankan pelajari lagi</div>
+            <div class="space-y-2">
+                @foreach(array_slice($recommendations, 0, 2) as $m)
+                    <a href="{{ route('user.materials.show', $m) }}" class="block bg-white rounded-xl p-3 border border-[#f6d9b8]">
+                        <div class="font-semibold text-sm">{{ $m->title }}</div>
+                        <div class="text-xs text-[#6b7896]">{{ \Illuminate\Support\Str::limit($m->summary, 80) }}</div>
                     </a>
                 @endforeach
             </div>
         </div>
     @endif
 
-    <div class="card">
-        <div class="font-semibold mb-3">Ringkasan Jawaban</div>
-        <div class="space-y-2">
-            @foreach($answers as $a)
-                <div class="flex flex-wrap items-center gap-3 p-3 border border-navy-100 rounded-lg">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $a->is_correct ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
-                        {!! $a->is_correct ? '✓' : '✕' !!}
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="text-sm font-semibold">{{ $a->cyberCase->case_code }} &middot; {{ $a->cyberCase->category_name }}</div>
-                        <div class="text-xs text-navy-500 truncate">{{ \Illuminate\Support\Str::limit($a->cyberCase->scenario_text, 90) }}</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xs text-navy-500">Skor</div>
-                        <div class="font-bold">{{ $a->case_score }}</div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    {{-- aksi lanjut --}}
+    <div class="space-y-2">
+        @if($nextLevel && $nextLevel['status'] !== 'locked')
+            <a href="{{ route('user.levels.show', $nextLevel['category']) }}" class="btn-primary w-full text-base py-3">
+                Lanjut ke Level {{ $nextLevel['index'] }}: {{ $nextLevel['title'] }} →
+            </a>
+        @elseif($nextLevel)
+            <a href="{{ route('user.levels.index') }}" class="btn-primary w-full text-base py-3">Buka Jalur Belajar →</a>
+        @else
+            <div class="u-card p-5 text-center" style="background:#ecfdf5;border-color:#a7f3d0">
+                <div class="text-2xl">🎓</div>
+                <div class="font-bold text-emerald-800">Kamu menyelesaikan semua level!</div>
+            </div>
+        @endif
 
-    <div class="flex flex-wrap gap-2 mt-5">
-        <a href="{{ route('user.simulations.index') }}" class="btn-primary">Latihan Lagi</a>
-        <a href="{{ route('user.dashboard') }}" class="btn-secondary">Kembali ke Dashboard</a>
-        <a href="{{ route('user.history.show', $session) }}" class="btn-secondary">Lihat Detail Riwayat</a>
+        @if($curLevel)
+            <a href="{{ route('user.levels.show', $curLevel['category']) }}" class="btn-secondary w-full">Ulangi level ini</a>
+        @endif
+        <a href="{{ route('user.levels.index') }}" class="block text-center text-sm text-[#6b7896] py-2">Kembali ke jalur belajar</a>
     </div>
 </div>
 @endsection
