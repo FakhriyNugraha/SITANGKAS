@@ -42,7 +42,7 @@
                     <tr>
                         <td>{{ $l['title'] }}</td>
                         <td>{{ $l['attempts'] }}x</td>
-                        <td>{{ $l['best'] !== null ? $l['best'] : '—' }}</td>
+                        <td>{{ $l['best'] !== null ? $l['best'] : '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -15,7 +15,7 @@
         <div>
             <div class="text-xs uppercase tracking-wider opacity-80">Level {{ $level['index'] }}</div>
             <h1 class="text-2xl font-extrabold">{{ $level['title'] }}</h1>
-            <div class="text-sm opacity-90">{{ $level['total_cases'] }} latihan · campuran aman & penipuan</div>
+            <div class="text-sm opacity-90">3 latihan kasus</div>
         </div>
     </div>
 </div>

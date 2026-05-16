@@ -44,38 +44,14 @@ class LevelController extends Controller
                 ->with('status', 'Level ini masih terkunci.');
         }
 
-        $setting = SimulationSetting::current();
-
-        // Kasus inti level ini, diurut dari termudah ke tersulit.
-        $core = CyberCase::where('is_active', true)
+        $cases = CyberCase::where('is_active', true)
             ->where('category', $category)
-            ->orderByRaw("FIELD(difficulty_level,'mudah','sedang','sulit')")
             ->orderBy('id')
-            ->limit(max($setting->default_case_count - 1, 1))
+            ->limit(3)
             ->pluck('id')
             ->all();
 
-        // Sisipkan 1 kasus pembanding agar tiap level punya variasi
-        // (ada yang memang aman & ada yang memang penipuan).
-        if ($category === 'legitimate') {
-            $extra = CyberCase::where('is_active', true)
-                ->where('category', '!=', 'legitimate')
-                ->where('difficulty_level', 'mudah')
-                ->inRandomOrder()->value('id');
-        } else {
-            $extra = CyberCase::where('is_active', true)
-                ->where('category', 'legitimate')
-                ->inRandomOrder()->value('id');
-        }
-
-        $cases = collect($core);
-        if ($extra) {
-            // taruh kasus pembanding di tengah supaya tidak ketebak
-            $pos = intdiv($cases->count(), 2);
-            $cases->splice($pos, 0, [$extra]);
-        }
-
-        if ($cases->isEmpty()) {
+        if (empty($cases)) {
             return redirect()->route('user.levels.index')
                 ->with('status', 'Belum ada latihan untuk level ini.');
         }
@@ -84,8 +60,8 @@ class LevelController extends Controller
             'user_id' => $request->user()->id,
             'mode' => 'category',
             'selected_category' => $category,
-            'total_cases' => $cases->count(),
-            'case_order' => $cases->all(),
+            'total_cases' => count($cases),
+            'case_order' => $cases,
             'current_index' => 0,
             'status' => 'in_progress',
             'started_at' => now(),

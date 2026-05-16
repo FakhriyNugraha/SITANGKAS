@@ -27,7 +27,6 @@ class CyberCase extends Model
     public static function categoryMap(): array
     {
         return [
-            'legitimate' => 'Pesan Aman',
             'phishing_link' => 'Link Phishing',
             'otp_fraud' => 'Penipuan OTP/PIN/CVV',
             'pinjol_ilegal' => 'Pinjol Ilegal',

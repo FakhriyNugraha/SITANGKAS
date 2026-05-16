@@ -2,7 +2,7 @@
 
 @php
     $icons = [
-        'legitimate'=>'shield-check','phishing_link'=>'link','fake_giveaway'=>'gift',
+        'phishing_link'=>'link','fake_giveaway'=>'gift',
         'otp_fraud'=>'key','password_security'=>'lock','marketplace_scam'=>'cart',
         'apk_malware'=>'phone','pinjol_ilegal'=>'cash','job_scam'=>'briefcase','qris_scam'=>'qr',
     ];

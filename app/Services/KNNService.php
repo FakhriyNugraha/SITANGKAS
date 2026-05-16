@@ -198,7 +198,6 @@ class KNNService
             'password_security' => 'password_score',
             'marketplace_scam' => 'marketplace_score',
             'pinjol_ilegal' => 'pinjol_score',
-            'legitimate' => 'phishing_score',
         ];
 
         $buckets = [

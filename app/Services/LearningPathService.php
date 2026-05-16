@@ -14,7 +14,6 @@ class LearningPathService
      * Setiap entri: [category, judul, ikon, warna heks].
      */
     public const PATH = [
-        ['legitimate',        'Mengenali Pesan Aman',     'shield-check', '#16a34a'],
         ['phishing_link',     'Link Phishing',            'link',         '#e67e22'],
         ['fake_giveaway',     'Hadiah Palsu',             'gift',         '#db2777'],
         ['otp_fraud',         'Penipuan OTP & PIN',       'key',          '#dc2626'],

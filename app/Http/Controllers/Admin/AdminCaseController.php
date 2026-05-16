@@ -75,16 +75,10 @@ class AdminCaseController extends Controller
     protected function validateData(Request $request, ?int $id = null): array
     {
         return $request->validate([
-            'case_code' => ['required', 'string', 'max:50', 'unique:cyber_cases,case_code'.($id ? ",$id" : '')],
-            'channel' => ['required', 'string', 'max:50'],
+            'channel' => ['nullable', 'string', 'max:50'],
             'category' => ['required', 'string', 'max:50'],
-            'category_name' => ['required', 'string', 'max:100'],
             'scenario_text' => ['required', 'string'],
-            'risk_label' => ['required', 'in:aman,mencurigakan,berbahaya'],
-            'difficulty_level' => ['required', 'in:mudah,sedang,sulit'],
-            'risk_score_rule' => ['nullable', 'integer'],
             'tutor_feedback' => ['required', 'string'],
-            'source_basis' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
             'indicators' => ['nullable', 'array'],
             'indicators.*.name' => ['required_with:indicators', 'string'],
@@ -107,19 +101,22 @@ class AdminCaseController extends Controller
             $correctIdx = (int) $data['correct_option'];
             $correctAction = $data['options'][$correctIdx]['option_text'] ?? ($data['options'][0]['option_text'] ?? '');
 
+            $categoryMap = CyberCase::categoryMap();
+            $category = $data['category'];
+
             $case->fill([
-                'case_code' => $data['case_code'],
-                'channel' => $data['channel'],
-                'category' => $data['category'],
-                'category_name' => $data['category_name'],
+                'case_code' => $case->case_code ?: 'CYB-' . strtoupper(Str::random(6)),
+                'channel' => $data['channel'] ?? null,
+                'category' => $category,
+                'category_name' => $categoryMap[$category] ?? $category,
                 'scenario_text' => $data['scenario_text'],
-                'risk_label' => $data['risk_label'],
-                'difficulty_level' => $data['difficulty_level'],
-                'risk_score_rule' => (int) ($data['risk_score_rule'] ?? 0),
+                'risk_label' => 'berbahaya',
+                'difficulty_level' => 'sedang',
+                'risk_score_rule' => 0,
                 'ideal_indicators' => $indicators,
                 'correct_action' => $correctAction,
                 'tutor_feedback' => $data['tutor_feedback'],
-                'source_basis' => $data['source_basis'] ?? null,
+                'source_basis' => null,
                 'is_active' => (bool) ($data['is_active'] ?? true),
             ])->save();
 
