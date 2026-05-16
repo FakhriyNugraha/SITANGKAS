@@ -83,7 +83,6 @@ class AdminCaseController extends Controller
             'risk_label' => ['required', 'in:aman,mencurigakan,berbahaya'],
             'difficulty_level' => ['required', 'in:mudah,sedang,sulit'],
             'risk_score_rule' => ['nullable', 'integer'],
-            'correct_action' => ['required', 'string'],
             'tutor_feedback' => ['required', 'string'],
             'source_basis' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
@@ -101,8 +100,12 @@ class AdminCaseController extends Controller
     {
         DB::transaction(function () use ($case, $data) {
             $indicators = collect($data['indicators'] ?? [])
-                ->map(fn($i) => ['name' => $i['name'], 'weight' => (int) $i['weight']])
+                ->filter(fn($i) => trim($i['name'] ?? '') !== '')
+                ->map(fn($i) => ['name' => trim($i['name']), 'weight' => (int) $i['weight']])
                 ->values()->all();
+
+            $correctIdx = (int) $data['correct_option'];
+            $correctAction = $data['options'][$correctIdx]['option_text'] ?? ($data['options'][0]['option_text'] ?? '');
 
             $case->fill([
                 'case_code' => $data['case_code'],
@@ -114,7 +117,7 @@ class AdminCaseController extends Controller
                 'difficulty_level' => $data['difficulty_level'],
                 'risk_score_rule' => (int) ($data['risk_score_rule'] ?? 0),
                 'ideal_indicators' => $indicators,
-                'correct_action' => $data['correct_action'],
+                'correct_action' => $correctAction,
                 'tutor_feedback' => $data['tutor_feedback'],
                 'source_basis' => $data['source_basis'] ?? null,
                 'is_active' => (bool) ($data['is_active'] ?? true),
@@ -124,7 +127,7 @@ class AdminCaseController extends Controller
             foreach ($data['options'] as $idx => $opt) {
                 $case->options()->create([
                     'option_text' => $opt['option_text'],
-                    'is_correct' => ((int) $data['correct_option']) === $idx,
+                    'is_correct' => $correctIdx === $idx,
                 ]);
             }
         });

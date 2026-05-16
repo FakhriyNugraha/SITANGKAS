@@ -30,12 +30,14 @@
                     <td class="text-navy-500 text-xs">{{ $i->relevant_category ?? '-' }}</td>
                     <td>{{ $i->risk_weight }}</td>
                     <td>{!! $i->is_active ? '<span class="text-emerald-600">●</span>' : '<span class="text-rose-400">●</span>' !!}</td>
-                    <td class="whitespace-nowrap space-x-2">
-                        <a href="{{ route('admin.indicators.edit', $i) }}" class="text-orange-600 font-semibold">Edit</a>
-                        <form method="POST" action="{{ route('admin.indicators.destroy', $i) }}" class="inline" onsubmit="return confirm('Hapus indikator ini?')">
-                            @csrf @method('DELETE')
-                            <button class="text-rose-600 font-semibold">Hapus</button>
-                        </form>
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('admin.indicators.edit', $i) }}" class="btn-secondary text-xs py-1.5 px-3">Edit</a>
+                            <form method="POST" action="{{ route('admin.indicators.destroy', $i) }}" onsubmit="return confirm('Hapus indikator ini?')">
+                                @csrf @method('DELETE')
+                                <button class="btn-secondary text-xs py-1.5 px-3">Hapus</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @empty

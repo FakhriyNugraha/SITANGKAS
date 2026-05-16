@@ -4,10 +4,24 @@ namespace App\Services;
 
 use App\Models\KnnTrainingProfile;
 use App\Models\SimulationSetting;
+use App\Models\UserAnswer;
+use App\Models\SimulationSession;
 
 class KNNService
 {
     protected int $k;
+
+    /** Label ramah untuk ditampilkan ke pengguna/admin (tanpa istilah teknis). */
+    public const LABELS = [
+        'beginner' => 'Pemula',
+        'intermediate' => 'Menengah',
+        'advanced' => 'Mahir',
+    ];
+
+    public static function label(?string $level): string
+    {
+        return self::LABELS[$level] ?? 'Belum dinilai';
+    }
 
     /** Feature columns dalam urutan tetap. */
     public const FEATURES = [
@@ -153,6 +167,74 @@ class KNNService
                 'distance' => round($n['distance'], 4),
             ], $nearest),
             'k' => $this->k,
+        ];
+    }
+
+    /**
+     * Klasifikasi level keseluruhan seorang user dari SELURUH jawaban yang
+     * sudah selesai. Fitur kategori yang belum pernah dilatih diisi dengan
+     * rata-rata performa user (bukan 0) supaya tidak bias ke "Pemula".
+     *
+     * @return array|null  ['level', 'scores'=>[...], 'sessions'=>int] atau null bila belum ada data.
+     */
+    public function classifyForUser(int $userId): ?array
+    {
+        $answers = UserAnswer::with('cyberCase')
+            ->where('user_id', $userId)
+            ->whereHas('session', fn ($q) => $q->where('status', 'completed'))
+            ->get();
+
+        if ($answers->isEmpty()) {
+            return null;
+        }
+
+        $catToFeature = [
+            'phishing_link' => 'phishing_score',
+            'fake_giveaway' => 'phishing_score',
+            'apk_malware' => 'phishing_score',
+            'job_scam' => 'phishing_score',
+            'qris_scam' => 'marketplace_score',
+            'otp_fraud' => 'otp_score',
+            'password_security' => 'password_score',
+            'marketplace_scam' => 'marketplace_score',
+            'pinjol_ilegal' => 'pinjol_score',
+            'legitimate' => 'phishing_score',
+        ];
+
+        $buckets = [
+            'phishing_score' => [], 'otp_score' => [], 'password_score' => [],
+            'marketplace_score' => [], 'pinjol_score' => [],
+        ];
+        foreach ($answers as $a) {
+            $f = $catToFeature[$a->cyberCase->category ?? ''] ?? null;
+            if ($f) $buckets[$f][] = (float) $a->case_score;
+        }
+
+        // Rata-rata keseluruhan untuk imputasi fitur yang kosong.
+        $allScores = $answers->pluck('case_score')->map(fn ($v) => (float) $v)->all();
+        $overallAvg = $allScores ? array_sum($allScores) / count($allScores) : 0.0;
+
+        $vector = [];
+        foreach ($buckets as $f => $vals) {
+            $vector[$f] = $vals ? round(array_sum($vals) / count($vals), 2) : round($overallAvg, 2);
+        }
+
+        $sessions = SimulationSession::where('user_id', $userId)
+            ->where('status', 'completed')->get();
+        $sessionCount = max($sessions->count(), 1);
+
+        $vector['wrong_count'] = round($answers->where('is_correct', false)->count() / $sessionCount, 2);
+        $vector['avg_time_seconds'] = round($answers->avg('answer_time_seconds') ?? 0, 2);
+        $vector['help_opened_count'] = round($answers->where('help_opened', true)->count() / $sessionCount, 2);
+
+        $result = $this->classify($vector);
+
+        return [
+            'level' => $result['level'],
+            'label' => self::label($result['level']),
+            'scores' => $vector,
+            'overall_score' => round($overallAvg, 1),
+            'sessions' => $sessions->count(),
         ];
     }
 }

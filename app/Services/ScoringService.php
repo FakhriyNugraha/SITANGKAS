@@ -12,9 +12,20 @@ class ScoringService
         return $isCorrect ? 100.0 : 0.0;
     }
 
-    public function calculateCaseScore(float $actionScore, float $fuzzyScore): float
+    /**
+     * Skor akhir sebuah kasus.
+     * - Tindakan benar = fondasi nilai (60%).
+     * - Kualitas alasan = 40%, dengan apresiasi: jika tindakan benar, alasan
+     *   minimal dihargai 55, dan bila mengenali >=1 tanda bahaya minimal 70.
+     */
+    public function calculateCaseScore(float $actionScore, float $reasonScore,
+                                       bool $isCorrect = false, int $detectedCount = 0): float
     {
-        return round(($actionScore * 0.6) + ($fuzzyScore * 0.4), 2);
+        if ($isCorrect) {
+            $floor = $detectedCount >= 1 ? 70.0 : 55.0;
+            $reasonScore = max($reasonScore, $floor);
+        }
+        return round(($actionScore * 0.6) + ($reasonScore * 0.4), 2);
     }
 
     /**

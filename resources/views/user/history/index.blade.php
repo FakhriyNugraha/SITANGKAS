@@ -25,7 +25,11 @@
             </div>
             <div class="text-right">
                 @if($s->status === 'completed')
-                    <div class="text-sm">{!! str_repeat('⭐', $stars) !!}</div>
+                    <div class="flex justify-end text-amber-500 mb-0.5">
+                        @for($n = 0; $n < 3; $n++)
+                            <x-icon name="star" class="w-3.5 h-3.5 {{ $n < $stars ? '' : 'opacity-25' }}" />
+                        @endfor
+                    </div>
                     <a class="text-xs text-[#e67e22] font-semibold" href="{{ route('user.history.show', $s) }}">Lihat detail</a>
                 @else
                     <a class="text-xs text-[#e67e22] font-semibold" href="{{ route('user.simulations.show', $s) }}">Lanjutkan</a>

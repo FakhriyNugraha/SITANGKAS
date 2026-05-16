@@ -14,16 +14,16 @@ class LearningPathService
      * Setiap entri: [category, judul, ikon, warna heks].
      */
     public const PATH = [
-        ['legitimate',        'Mengenali Pesan Aman',     '🛡️', '#16a34a'],
-        ['phishing_link',     'Link Phishing',            '🔗', '#e67e22'],
-        ['fake_giveaway',     'Hadiah Palsu',             '🎁', '#db2777'],
-        ['otp_fraud',         'Penipuan OTP & PIN',       '🔑', '#dc2626'],
-        ['password_security', 'Keamanan Password',        '🔒', '#2563eb'],
-        ['marketplace_scam',  'Belanja Online Aman',      '🛒', '#7c3aed'],
-        ['apk_malware',       'Bahaya File APK',          '📱', '#0891b2'],
-        ['pinjol_ilegal',     'Pinjol Ilegal',            '💸', '#b45309'],
-        ['job_scam',          'Lowongan Kerja Palsu',     '💼', '#0d9488'],
-        ['qris_scam',         'QRIS & Bukti Transfer',    '🧾', '#9333ea'],
+        ['legitimate',        'Mengenali Pesan Aman',     'shield-check', '#16a34a'],
+        ['phishing_link',     'Link Phishing',            'link',         '#e67e22'],
+        ['fake_giveaway',     'Hadiah Palsu',             'gift',         '#db2777'],
+        ['otp_fraud',         'Penipuan OTP & PIN',       'key',          '#dc2626'],
+        ['password_security', 'Keamanan Password',        'lock',         '#2563eb'],
+        ['marketplace_scam',  'Belanja Online Aman',      'cart',         '#7c3aed'],
+        ['apk_malware',       'Bahaya File APK',          'phone',        '#0891b2'],
+        ['pinjol_ilegal',     'Pinjol Ilegal',            'cash',         '#b45309'],
+        ['job_scam',          'Lowongan Kerja Palsu',     'briefcase',    '#0d9488'],
+        ['qris_scam',         'QRIS & Bukti Transfer',    'qr',           '#9333ea'],
     ];
 
     /**

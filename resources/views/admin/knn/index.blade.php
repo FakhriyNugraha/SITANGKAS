@@ -49,12 +49,14 @@
                     <td>{{ $p->avg_time_seconds }}s</td>
                     <td>{{ $p->help_opened_count }}</td>
                     <td><span class="badge badge-{{ $p->awareness_level }}">{{ $p->awareness_level }}</span></td>
-                    <td class="whitespace-nowrap space-x-2">
-                        <a href="{{ route('admin.knn.edit', $p) }}" class="text-orange-600 font-semibold">Edit</a>
-                        <form method="POST" action="{{ route('admin.knn.destroy', $p) }}" class="inline" onsubmit="return confirm('Hapus?')">
-                            @csrf @method('DELETE')
-                            <button class="text-rose-600 font-semibold">Hapus</button>
-                        </form>
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('admin.knn.edit', $p) }}" class="btn-secondary text-xs py-1.5 px-3">Edit</a>
+                            <form method="POST" action="{{ route('admin.knn.destroy', $p) }}" onsubmit="return confirm('Hapus?')">
+                                @csrf @method('DELETE')
+                                <button class="btn-secondary text-xs py-1.5 px-3">Hapus</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @empty

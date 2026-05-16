@@ -70,7 +70,7 @@ class SimulationController extends Controller
         $ideal = $case->ideal_indicators ?? [];
         $matching = $fuzzy->detectIndicators($data['reason_text'], $ideal);
         $fuzzyScore = $fuzzy->calculateFuzzyScore($matching['detected'], $ideal);
-        $caseScore = $scoring->calculateCaseScore($actionScore, $fuzzyScore);
+        $caseScore = $scoring->calculateCaseScore($actionScore, $fuzzyScore, $isCorrect, count($matching['detected']));
 
         DB::transaction(function () use ($simulation, $data, $case, $option, $isCorrect, $actionScore, $fuzzyScore, $caseScore, $matching) {
             UserAnswer::create([

@@ -2,74 +2,121 @@
 
 @section('body')
 <div class="min-h-screen">
-    <header class="navy-gradient text-white">
+    <header style="background:linear-gradient(135deg,#1B2A4A 0%,#243B63 55%,#3a2a17 130%)" class="text-white">
         <nav class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 orange-gradient rounded-lg flex items-center justify-center font-bold shield-glow">S</div>
-                <div>
-                    <div class="font-bold text-lg leading-none">SITANGKAS</div>
-                    <div class="text-[10px] text-navy-200 tracking-wider uppercase">Cyber Awareness</div>
-                </div>
+            <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 orange-gradient rounded-xl flex items-center justify-center text-white">
+                    <x-icon name="shield-check" class="w-5 h-5" />
+                </span>
+                <span class="font-extrabold text-lg tracking-tight">SITANGKAS</span>
             </div>
-            <div class="flex gap-3">
+            <div class="flex items-center gap-2">
                 @auth
                     <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('user.dashboard') }}" class="btn-primary">Buka Dashboard</a>
                 @else
-                    <a href="{{ route('login') }}" class="text-white/80 hover:text-white px-4 py-2">Masuk</a>
-                    <a href="{{ route('register') }}" class="btn-primary">Daftar Gratis</a>
+                    <a href="{{ route('login') }}" class="px-4 py-2 text-white/80 hover:text-white text-sm font-medium">Masuk</a>
+                    <a href="{{ route('register') }}" class="btn-primary">Daftar</a>
                 @endauth
             </div>
         </nav>
 
-        <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-6xl mx-auto px-6 pt-12 pb-20 grid md:grid-cols-2 gap-10 items-center">
             <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-orange-200 text-xs uppercase tracking-wider mb-5">Intelligent Tutor System</div>
-                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-5">
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">
                     Kenali Modusnya.<br>
                     Pilih Aksi Amannya.<br>
-                    <span class="text-orange-300">Jadi Lebih Tanggap Digital.</span>
+                    <span class="text-orange-400">Jadi Lebih Tanggap Digital.</span>
                 </h1>
-                <p class="text-navy-100 text-lg mb-8 leading-relaxed">
-                    SITANGKAS melatih Anda menghadapi skenario penipuan digital sehari-hari: SMS hadiah palsu, link phishing, OTP scam, pinjol ilegal, marketplace scam, dan modus lainnya. Belajar lewat simulasi, bukan teori.
+                <p class="text-[#c7d2e6] text-lg mb-8 leading-relaxed max-w-lg">
+                    Latih dirimu menghadapi penipuan digital sehari-hari, mulai dari SMS hadiah palsu, link phishing, hingga modus pinjol ilegal, lewat simulasi kasus nyata yang interaktif.
                 </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('register') }}" class="btn-primary">Mulai Latihan Gratis</a>
-                    <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-lg border border-white/30 text-white hover:bg-white/10 transition">Sudah Punya Akun</a>
-                </div>
-            </div>
-            <div class="relative">
-                <div class="card text-navy-700 scan-line-bg">
-                    <div class="text-[10px] uppercase tracking-wider text-orange-600 font-semibold mb-1">Simulasi · Kanal SMS</div>
-                    <div class="text-sm text-navy-500 mb-3">Selamat! Anda mendapat hadiah Rp50.000.000. Klik link berikut untuk klaim:<br><span class="text-rose-600">http://bit.ly/hadiah-tsel</span></div>
-                    <div class="space-y-2 text-sm">
-                        <label class="flex items-center gap-2 p-2 border border-navy-100 rounded-lg"><input type="radio" disabled> Klik link sekarang</label>
-                        <label class="flex items-center gap-2 p-2 border border-orange-300 bg-orange-50 rounded-lg"><input type="radio" disabled checked> Abaikan dan blokir</label>
+                @guest
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('register') }}" class="btn-primary text-base px-6 py-3">Daftar Sekarang</a>
+                        <a href="{{ route('login') }}" class="px-6 py-3 rounded-lg border border-white/25 text-white hover:bg-white/10 transition text-sm font-medium">Masuk</a>
                     </div>
-                    <textarea class="form-textarea mt-3 text-sm" placeholder="Tulis alasanmu..." disabled rows="2">link tidak resmi dan mendesak</textarea>
-                </div>
+                @endguest
+            </div>
+
+            {{-- Ilustrasi keamanan profesional --}}
+            <div class="flex justify-center">
+                <svg viewBox="0 0 420 360" class="w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="ph" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1e40af"/>
+                        </linearGradient>
+                        <linearGradient id="sh" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#0d9488"/>
+                        </linearGradient>
+                    </defs>
+                    {{-- floating browser card --}}
+                    <g>
+                        <rect x="250" y="35" width="140" height="92" rx="10" fill="#3b82f6"/>
+                        <rect x="250" y="35" width="140" height="22" rx="10" fill="#60a5fa"/>
+                        <circle cx="262" cy="46" r="3" fill="#fff"/><circle cx="273" cy="46" r="3" fill="#fff"/>
+                        <rect x="266" y="70" width="46" height="42" rx="6" fill="#f59e0b"/>
+                        <rect x="320" y="72" width="58" height="8" rx="4" fill="#bfdbfe"/>
+                        <rect x="320" y="88" width="44" height="8" rx="4" fill="#bfdbfe"/>
+                    </g>
+                    {{-- phone --}}
+                    <rect x="120" y="40" width="170" height="300" rx="26" fill="#0f172a"/>
+                    <rect x="130" y="58" width="150" height="264" rx="16" fill="url(#ph)"/>
+                    <circle cx="205" cy="110" r="26" fill="#fff" opacity="0.95"/>
+                    <circle cx="205" cy="101" r="9" fill="#2563eb"/>
+                    <path d="M188 128a17 17 0 0 1 34 0z" fill="#2563eb"/>
+                    <rect x="150" y="158" width="110" height="22" rx="11" fill="#fff" opacity="0.9"/>
+                    <rect x="150" y="190" width="110" height="22" rx="11" fill="#fff" opacity="0.9"/>
+                    <rect x="150" y="226" width="110" height="22" rx="11" fill="#f59e0b"/>
+                    <rect x="182" y="266" width="46" height="46" rx="9" fill="#fff" opacity="0.95"/>
+                    <rect x="190" y="284" width="30" height="22" rx="3" fill="#1e40af"/>
+                    <path d="M198 284v-7a7 7 0 0 1 14 0v7" fill="none" stroke="#1e40af" stroke-width="3"/>
+                    {{-- big shield check --}}
+                    <g transform="translate(20 150)">
+                        <path d="M70 0 6 22v50c0 42 30 70 64 84 34-14 64-42 64-84V22z" fill="url(#sh)"/>
+                        <path d="M44 78l20 20 36-40" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    {{-- small lock badge --}}
+                    <g transform="translate(300 230)">
+                        <circle cx="34" cy="34" r="34" fill="#1B2A4A"/>
+                        <rect x="20" y="32" width="28" height="22" rx="4" fill="#f59e0b"/>
+                        <path d="M26 32v-6a8 8 0 0 1 16 0v6" fill="none" stroke="#f59e0b" stroke-width="4"/>
+                    </g>
+                </svg>
             </div>
         </div>
     </header>
 
-    <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6">
-        @foreach([
-            ['Simulasi Nyata', 'Kasus diambil dari modus penipuan digital yang sering muncul di SMS, WhatsApp, email, dan marketplace.'],
-            ['Fuzzy Matching', 'Alasan jawabanmu dianalisis sistem untuk memastikan kamu paham, bukan sekadar menebak.'],
-            ['Level KNN', 'Sistem menentukan level cyber awareness kamu: Beginner, Intermediate, atau Advanced.'],
-        ] as [$title, $desc])
-            <div class="card card-hover">
-                <div class="w-11 h-11 rounded-xl orange-gradient flex items-center justify-center text-white font-bold mb-3">★</div>
-                <h3 class="font-bold text-lg mb-2">{{ $title }}</h3>
-                <p class="text-navy-500 text-sm leading-relaxed">{{ $desc }}</p>
-            </div>
-        @endforeach
+    <section class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-navy-700">Belajar Keamanan Digital dengan Cara yang Berbeda</h2>
+            <p class="text-navy-500 mt-2 max-w-xl mx-auto">Bukan sekadar teori. Kamu menghadapi situasi nyata, mengambil keputusan, dan mendapat penjelasan langsung.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+            @foreach([
+                ['shield-check','Simulasi Kasus Nyata','Hadapi skenario seperti SMS, chat, dan email penipuan yang sering terjadi sehari-hari.'],
+                ['cap','Belajar Bertahap','Materi tersusun seperti kurikulum, dari dasar hingga level lanjutan, satu per satu.'],
+                ['chart','Pantau Kemampuan','Lihat perkembangan tingkat kewaspadaanmu dan dapatkan rekomendasi materi yang sesuai.'],
+            ] as [$ic,$t,$d])
+                <div class="card card-hover">
+                    <span class="w-11 h-11 rounded-xl orange-gradient text-white flex items-center justify-center mb-3">
+                        <x-icon name="{{ $ic }}" class="w-6 h-6" />
+                    </span>
+                    <h3 class="font-bold text-lg mb-1.5 text-navy-700">{{ $t }}</h3>
+                    <p class="text-navy-500 text-sm leading-relaxed">{{ $d }}</p>
+                </div>
+            @endforeach
+        </div>
     </section>
 
-    <section class="navy-gradient text-white py-14">
+    <section style="background:linear-gradient(135deg,#1B2A4A 0%,#243B63 60%,#3a2a17 135%)" class="text-white py-14">
         <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-3">Siap menghadapi modus penipuan digital?</h2>
-            <p class="text-navy-100 mb-6">Daftar gratis dan mulai latihan sekarang. Default 10 kasus per sesi, dengan feedback tutor di setiap jawaban.</p>
-            <a href="{{ route('register') }}" class="btn-primary">Daftar Sekarang</a>
+            <h2 class="text-2xl md:text-3xl font-extrabold mb-3">Siap jadi lebih waspada terhadap penipuan digital?</h2>
+            <p class="text-[#c7d2e6] mb-6">Mulai gratis. Belajar bertahap lewat simulasi, dengan umpan balik di setiap langkah.</p>
+            @guest
+                <a href="{{ route('register') }}" class="btn-primary text-base px-7 py-3">Daftar Sekarang</a>
+            @else
+                <a href="{{ route('user.dashboard') }}" class="btn-primary text-base px-7 py-3">Lanjut Belajar</a>
+            @endguest
         </div>
     </section>
 

@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\AdminFuzzyIndicatorController;
 use App\Http\Controllers\Admin\AdminImportController;
 use App\Http\Controllers\Admin\AdminKnnTrainingController;
 use App\Http\Controllers\Admin\AdminMaterialController;
-use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\AdminResultController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Auth\AuthController;
@@ -90,9 +89,5 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
 
     Route::get('/results', [AdminResultController::class, 'index'])->name('results.index');
-    Route::get('/results/{session}', [AdminResultController::class, 'show'])->name('results.show');
-
-    Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
-    Route::get('/reports/export/pdf', [AdminReportController::class, 'exportPdf'])->name('reports.pdf');
-    Route::get('/reports/export/excel', [AdminReportController::class, 'exportExcel'])->name('reports.excel');
+    Route::get('/results/{user}', [AdminResultController::class, 'show'])->name('results.show');
 });

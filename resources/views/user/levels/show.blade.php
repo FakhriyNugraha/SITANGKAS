@@ -3,39 +3,47 @@
 @php $mat = $level['material']; @endphp
 
 @section('content')
-<a href="{{ route('user.levels.index') }}" class="text-sm text-[#6b7896]">← Jalur belajar</a>
+<a href="{{ route('user.levels.index') }}" class="text-sm text-[#6b7896] inline-flex items-center gap-1">
+    <x-icon name="arrow-left" class="w-4 h-4" /> Jalur simulasi
+</a>
 
 <div class="u-card p-6 mt-3 mb-5 bounce-in" style="background:linear-gradient(135deg,{{ $level['color'] }},#1b2a4a);color:#fff;border:none">
     <div class="flex items-center gap-4">
-        <div class="w-16 h-16 rounded-2xl bg-white/15 flex items-center justify-center text-3xl">{{ $level['icon'] }}</div>
+        <span class="w-16 h-16 rounded-2xl bg-white/15 flex items-center justify-center">
+            <x-icon name="{{ $level['icon'] }}" class="w-8 h-8" />
+        </span>
         <div>
             <div class="text-xs uppercase tracking-wider opacity-80">Level {{ $level['index'] }}</div>
             <h1 class="text-2xl font-extrabold">{{ $level['title'] }}</h1>
-            <div class="text-sm opacity-90">{{ $level['total_cases'] }} latihan · dari mudah ke sulit</div>
+            <div class="text-sm opacity-90">{{ $level['total_cases'] }} latihan · campuran aman & penipuan</div>
         </div>
     </div>
 </div>
 
 @if($mat)
-<div class="u-card p-6 mb-5">
-    <div class="flex items-center gap-2 mb-1">
-        <span class="text-xs font-bold text-[#e67e22] uppercase tracking-wider">📖 Pelajari dulu</span>
+<div class="u-card overflow-hidden mb-5">
+    <div class="px-6 py-4 border-b border-[#eef2f7] flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-[#fff3e6] text-[#e67e22] flex items-center justify-center"><x-icon name="book" class="w-4 h-4" /></span>
+        <div>
+            <div class="text-[11px] font-bold text-[#e67e22] uppercase tracking-wider">Pelajari dulu</div>
+            <div class="font-bold text-sm">{{ $mat->title }}</div>
+        </div>
     </div>
-    <h2 class="text-lg font-extrabold mb-1">{{ $mat->title }}</h2>
-    <p class="text-sm text-[#6b7896] mb-4">{{ $mat->summary }}</p>
-    <div class="text-[15px]">
+    <div class="p-6 text-[15px]">
         {!! \App\Support\MaterialFormatter::toHtml($mat->content) !!}
     </div>
 </div>
 @endif
 
 <div class="u-card p-6 text-center">
-    <div class="text-2xl mb-1">🎯</div>
+    <span class="w-12 h-12 rounded-2xl bg-[#fff3e6] text-[#e67e22] inline-flex items-center justify-center mb-2">
+        <x-icon name="play" class="w-6 h-6" />
+    </span>
     <h3 class="font-extrabold text-lg">Sudah paham materinya?</h3>
-    <p class="text-sm text-[#6b7896] mb-4">Sekarang uji pemahamanmu lewat {{ $level['total_cases'] }} latihan kasus nyata. Selesaikan semuanya untuk membuka level berikutnya.</p>
+    <p class="text-sm text-[#6b7896] mb-4">Uji pemahamanmu lewat {{ $level['total_cases'] }} latihan kasus. Selesaikan semuanya untuk membuka level berikutnya.</p>
     <form method="POST" action="{{ route('user.levels.start', $level['category']) }}">
         @csrf
-        <button class="btn-primary text-base px-7 py-3">Mulai Latihan →</button>
+        <button class="btn-primary text-base px-7 py-3">Mulai Latihan <x-icon name="arrow-right" class="w-4 h-4" /></button>
     </form>
 </div>
 @endsection

@@ -46,13 +46,34 @@ class LevelController extends Controller
 
         $setting = SimulationSetting::current();
 
-        // Urutkan kasus dari yang termudah ke tersulit dalam level ini.
-        $cases = CyberCase::where('is_active', true)
+        // Kasus inti level ini, diurut dari termudah ke tersulit.
+        $core = CyberCase::where('is_active', true)
             ->where('category', $category)
             ->orderByRaw("FIELD(difficulty_level,'mudah','sedang','sulit')")
             ->orderBy('id')
-            ->limit($setting->default_case_count)
-            ->pluck('id');
+            ->limit(max($setting->default_case_count - 1, 1))
+            ->pluck('id')
+            ->all();
+
+        // Sisipkan 1 kasus pembanding agar tiap level punya variasi
+        // (ada yang memang aman & ada yang memang penipuan).
+        if ($category === 'legitimate') {
+            $extra = CyberCase::where('is_active', true)
+                ->where('category', '!=', 'legitimate')
+                ->where('difficulty_level', 'mudah')
+                ->inRandomOrder()->value('id');
+        } else {
+            $extra = CyberCase::where('is_active', true)
+                ->where('category', 'legitimate')
+                ->inRandomOrder()->value('id');
+        }
+
+        $cases = collect($core);
+        if ($extra) {
+            // taruh kasus pembanding di tengah supaya tidak ketebak
+            $pos = intdiv($cases->count(), 2);
+            $cases->splice($pos, 0, [$extra]);
+        }
 
         if ($cases->isEmpty()) {
             return redirect()->route('user.levels.index')

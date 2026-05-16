@@ -19,7 +19,7 @@
     <div class="chat-phone max-w-sm mx-auto">
         <div class="chat-screen" style="background:#efeae2">
             <div class="bg-[#075e54] text-white py-2 px-3 text-xs font-semibold flex items-center gap-2">
-                <span class="w-7 h-7 rounded-full bg-white/25 flex items-center justify-center">?</span>
+                <span class="w-7 h-7 rounded-full bg-white/25 flex items-center justify-center"><x-icon name="user" class="w-4 h-4" /></span>
                 +62 8xx-xxxx-xxxx
             </div>
             <div class="p-4 space-y-2 min-h-[150px]">
@@ -44,7 +44,9 @@
             <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-            <div class="ml-2 flex-1 bg-white border border-[#e2e8f0] rounded-md px-3 py-1 text-xs text-[#6b7896]">🔒 situs-tidak-dikenal.web</div>
+            <div class="ml-2 flex-1 bg-white border border-[#e2e8f0] rounded-md px-3 py-1 text-xs text-[#6b7896] flex items-center gap-1">
+                <x-icon name="lock" class="w-3 h-3" /> situs-tidak-dikenal.web
+            </div>
         </div>
         <div class="p-5 text-sm leading-relaxed text-[#1f2937] min-h-[120px]">{{ $txt }}</div>
     </div>
@@ -52,7 +54,7 @@
     {{-- Tampilan Telepon --}}
     <div class="chat-phone max-w-xs mx-auto">
         <div class="chat-screen text-center py-8" style="background:#1b2a4a;color:#fff">
-            <div class="text-5xl mb-3">📞</div>
+            <x-icon name="phone" class="w-12 h-12 mx-auto mb-3 opacity-90" />
             <div class="font-bold">Panggilan masuk…</div>
             <div class="text-xs opacity-70 mb-4">Nomor tidak dikenal</div>
             <div class="bubble-in text-left text-sm mx-4">{{ $txt }}</div>

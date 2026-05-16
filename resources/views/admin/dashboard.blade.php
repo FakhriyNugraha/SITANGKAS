@@ -41,9 +41,9 @@
                 <div class="font-bold">Lihat Hasil User</div>
                 <div class="text-xs text-navy-500">Pantau progres pembelajaran</div>
             </a>
-            <a href="{{ route('admin.reports.index') }}" class="p-4 bg-navy-50 rounded-lg hover:bg-navy-100 transition">
-                <div class="font-bold">Laporan</div>
-                <div class="text-xs text-navy-500">Ekspor PDF / Excel</div>
+            <a href="{{ route('admin.materials.index') }}" class="p-4 bg-navy-50 rounded-lg hover:bg-navy-100 transition">
+                <div class="font-bold">Kelola Materi</div>
+                <div class="text-xs text-navy-500">Perbarui materi edukasi</div>
             </a>
         </div>
     </div>

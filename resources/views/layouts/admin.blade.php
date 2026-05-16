@@ -15,7 +15,6 @@
             <a href="{{ route('admin.cases.index') }}" class="sidebar-link {{ request()->routeIs('admin.cases.*') ? 'sidebar-link-active' : '' }}">Kelola Kasus</a>
             <a href="{{ route('admin.materials.index') }}" class="sidebar-link {{ request()->routeIs('admin.materials.*') ? 'sidebar-link-active' : '' }}">Kelola Materi</a>
             <a href="{{ route('admin.results.index') }}" class="sidebar-link {{ request()->routeIs('admin.results.*') ? 'sidebar-link-active' : '' }}">Hasil Belajar User</a>
-            <a href="{{ route('admin.reports.index') }}" class="sidebar-link {{ request()->routeIs('admin.reports.*') ? 'sidebar-link-active' : '' }}">Laporan</a>
         </nav>
         <div class="px-3 py-4 border-t border-white/10">
             <div class="text-xs text-navy-200 px-3 mb-2">{{ auth()->user()->name }}</div>

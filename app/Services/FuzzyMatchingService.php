@@ -159,6 +159,13 @@ class FuzzyMatchingService
             $totalDetected += $d['weight'] ?? 0;
         }
 
-        return round(min(100, ($totalDetected / $totalIdeal) * 100), 2);
+        $score = ($totalDetected / $totalIdeal) * 100;
+
+        // Apresiasi: mengenali minimal satu tanda bahaya sudah bernilai layak.
+        if (count($detected) >= 1) {
+            $score = max($score, 65);
+        }
+
+        return round(min(100, $score), 2);
     }
 }

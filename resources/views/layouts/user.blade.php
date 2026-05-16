@@ -10,20 +10,30 @@
     <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-[#e7ecf5]">
         <div class="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
             <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2">
-                <div class="w-8 h-8 orange-gradient rounded-xl flex items-center justify-center text-white font-bold text-sm">S</div>
+                <span class="w-8 h-8 orange-gradient rounded-xl flex items-center justify-center text-white">
+                    <x-icon name="shield-check" class="w-5 h-5" />
+                </span>
                 <span class="font-extrabold tracking-tight">SITANGKAS</span>
             </a>
 
             <nav class="hidden sm:flex items-center gap-1 ml-2">
-                <a href="{{ route('user.dashboard') }}" class="u-nav-link {{ request()->routeIs('user.dashboard') ? 'u-nav-active' : '' }}">Beranda</a>
-                <a href="{{ route('user.levels.index') }}" class="u-nav-link {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'u-nav-active' : '' }}">Belajar</a>
-                <a href="{{ route('user.materials.index') }}" class="u-nav-link {{ request()->routeIs('user.materials.*') ? 'u-nav-active' : '' }}">Materi</a>
-                <a href="{{ route('user.history.index') }}" class="u-nav-link {{ request()->routeIs('user.history.*') ? 'u-nav-active' : '' }}">Riwayat</a>
+                <a href="{{ route('user.dashboard') }}" class="u-nav-link {{ request()->routeIs('user.dashboard') ? 'u-nav-active' : '' }}">
+                    <x-icon name="home" class="w-4 h-4" /> Beranda
+                </a>
+                <a href="{{ route('user.levels.index') }}" class="u-nav-link {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'u-nav-active' : '' }}">
+                    <x-icon name="play" class="w-4 h-4" /> Simulasi
+                </a>
+                <a href="{{ route('user.materials.index') }}" class="u-nav-link {{ request()->routeIs('user.materials.*') ? 'u-nav-active' : '' }}">
+                    <x-icon name="book" class="w-4 h-4" /> Materi
+                </a>
+                <a href="{{ route('user.history.index') }}" class="u-nav-link {{ request()->routeIs('user.history.*') ? 'u-nav-active' : '' }}">
+                    <x-icon name="list" class="w-4 h-4" /> Riwayat
+                </a>
             </nav>
 
             <div class="ml-auto flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-[#c2611a] bg-[#fff3e6] px-3 py-1.5 rounded-full">
-                    <span>⭐</span> {{ $prog['done'] }}/{{ $prog['total'] }} level
+                <div class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-[#c2611a] bg-[#fff3e6] px-3 py-1.5 rounded-full">
+                    <x-icon name="star" class="w-3.5 h-3.5" /> {{ $prog['done'] }}/{{ $prog['total'] }} level
                 </div>
                 <div x-data="{o:false}" class="relative">
                     <button @click="o=!o" class="w-8 h-8 rounded-full bg-[#1b2a4a] text-white text-xs font-bold flex items-center justify-center">
@@ -32,19 +42,28 @@
                     <div x-show="o" @click.outside="o=false" x-cloak class="absolute right-0 mt-2 w-44 bg-white border border-[#e7ecf5] rounded-xl shadow-lg py-1 text-sm">
                         <div class="px-3 py-2 text-xs text-[#6b7896] border-b border-[#eef2f7]">{{ auth()->user()->name }}</div>
                         <form method="POST" action="{{ route('logout') }}">@csrf
-                            <button class="w-full text-left px-3 py-2 hover:bg-[#f6f8fc]">Keluar</button>
+                            <button class="w-full text-left px-3 py-2 hover:bg-[#f6f8fc] flex items-center gap-2">
+                                <x-icon name="logout" class="w-4 h-4" /> Keluar
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- nav mobile --}}
-        <nav class="sm:hidden flex items-center justify-around border-t border-[#eef2f7] text-xs py-1.5">
-            <a href="{{ route('user.dashboard') }}" class="px-3 py-1 {{ request()->routeIs('user.dashboard') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Beranda</a>
-            <a href="{{ route('user.levels.index') }}" class="px-3 py-1 {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Belajar</a>
-            <a href="{{ route('user.materials.index') }}" class="px-3 py-1 {{ request()->routeIs('user.materials.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Materi</a>
-            <a href="{{ route('user.history.index') }}" class="px-3 py-1 {{ request()->routeIs('user.history.*') ? 'text-[#c2611a] font-bold' : 'text-[#6b7896]' }}">Riwayat</a>
+        <nav class="sm:hidden grid grid-cols-4 border-t border-[#eef2f7] text-[11px]">
+            <a href="{{ route('user.dashboard') }}" class="flex flex-col items-center py-1.5 {{ request()->routeIs('user.dashboard') ? 'text-[#c2611a]' : 'text-[#6b7896]' }}">
+                <x-icon name="home" class="w-5 h-5" /> Beranda
+            </a>
+            <a href="{{ route('user.levels.index') }}" class="flex flex-col items-center py-1.5 {{ request()->routeIs('user.levels.*','user.simulations.*') ? 'text-[#c2611a]' : 'text-[#6b7896]' }}">
+                <x-icon name="play" class="w-5 h-5" /> Simulasi
+            </a>
+            <a href="{{ route('user.materials.index') }}" class="flex flex-col items-center py-1.5 {{ request()->routeIs('user.materials.*') ? 'text-[#c2611a]' : 'text-[#6b7896]' }}">
+                <x-icon name="book" class="w-5 h-5" /> Materi
+            </a>
+            <a href="{{ route('user.history.index') }}" class="flex flex-col items-center py-1.5 {{ request()->routeIs('user.history.*') ? 'text-[#c2611a]' : 'text-[#6b7896]' }}">
+                <x-icon name="list" class="w-5 h-5" /> Riwayat
+            </a>
         </nav>
     </header>
 

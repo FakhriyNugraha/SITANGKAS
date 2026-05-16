@@ -17,8 +17,8 @@ class SimulationSetting extends Model
     {
         return static::firstOrCreate(['id' => 1], [
             'default_case_count' => 10,
-            'fuzzy_match_threshold' => 70,
-            'fuzzy_partial_threshold' => 60,
+            'fuzzy_match_threshold' => 65,
+            'fuzzy_partial_threshold' => 50,
             'knn_k_value' => 3,
             'is_mixed_mode_enabled' => true,
             'randomize_cases' => true,

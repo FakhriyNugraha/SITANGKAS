@@ -220,12 +220,23 @@ html, body {
     box-shadow: 0 2px 0 #e7ecf5;
 }
 
-.mat-h { font-weight: 700; color: #1b2a4a; margin: 1rem 0 .35rem; font-size: 1rem; }
-.mat-p { color: #41506b; margin: .35rem 0; line-height: 1.65; }
-.mat-ul, .mat-ol { margin: .35rem 0 .6rem 1.1rem; color: #41506b; line-height: 1.65; }
+.mat-h2 { font-weight: 800; color: #1b2a4a; margin: 1.6rem 0 .5rem; font-size: 1.15rem; padding-bottom: .35rem; border-bottom: 2px solid #fde9d6; }
+.mat-h { font-weight: 700; color: #243b63; margin: 1rem 0 .35rem; font-size: 1rem; }
+.mat-p { color: #41506b; margin: .4rem 0; line-height: 1.7; }
+.mat-ul, .mat-ol { margin: .4rem 0 .7rem 1.2rem; color: #41506b; line-height: 1.7; }
 .mat-ul { list-style: disc; }
 .mat-ol { list-style: decimal; }
-.mat-ul li, .mat-ol li { margin: .2rem 0; padding-left: .15rem; }
+.mat-ul li, .mat-ol li { margin: .25rem 0; padding-left: .15rem; }
+.mat-example, .mat-note {
+    margin: .7rem 0; padding: .75rem .9rem; border-radius: .7rem; font-size: .92rem; line-height: 1.6;
+}
+.mat-example { background: #fff7ef; border-left: 4px solid #e67e22; color: #7a4410; }
+.mat-note { background: #eef4ff; border-left: 4px solid #2563eb; color: #1e3a8a; }
+.mat-tag {
+    display: inline-block; font-weight: 700; font-size: .68rem; text-transform: uppercase;
+    letter-spacing: .04em; margin-right: .4rem; padding: .1rem .45rem; border-radius: .35rem;
+    background: rgba(0,0,0,.06);
+}
 
 /* node jalur belajar */
 .lvl-node {

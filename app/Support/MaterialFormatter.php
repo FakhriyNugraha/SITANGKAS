@@ -53,6 +53,20 @@ class MaterialFormatter
 
             $closeList();
 
+            // callout Contoh / Ingat / Tips
+            if (preg_match('/^(Contoh|Ingat|Tips|Catatan)\s*[:—-]\s*(.*)$/u', $line, $m)) {
+                $kind = strtolower($m[1]);
+                $cls = $kind === 'contoh' ? 'mat-example' : 'mat-note';
+                $html .= '<div class="'.$cls.'"><span class="mat-tag">'.e($m[1]).'</span> '.e($m[2]).'</div>';
+                continue;
+            }
+
+            // judul bab "## Judul"
+            if (Str::startsWith($line, '## ')) {
+                $html .= '<h3 class="mat-h2">'.e(trim(substr($line, 3))).'</h3>';
+                continue;
+            }
+
             // sub-judul (baris pendek diakhiri ":")
             if (Str::endsWith($line, ':') && mb_strlen($line) <= 70) {
                 $html .= '<h4 class="mat-h">'.e(rtrim($line, ':')).'</h4>';

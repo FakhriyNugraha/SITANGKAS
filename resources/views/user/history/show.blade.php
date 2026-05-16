@@ -19,7 +19,7 @@
         @foreach($session->answers as $i => $a)
             <details class="u-card overflow-hidden">
                 <summary class="cursor-pointer p-4 flex items-center gap-3">
-                    <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs {{ $a->is_correct ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">{{ $a->is_correct ? '✓' : '✕' }}</span>
+                    <span class="w-7 h-7 rounded-lg flex items-center justify-center {{ $a->is_correct ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}"><x-icon name="{{ $a->is_correct ? 'check-circle' : 'x-circle' }}" class="w-4 h-4" /></span>
                     <span class="flex-1 text-sm font-semibold">Soal {{ $i + 1 }}</span>
                     <span class="text-xs font-bold text-[#6b7896]">{{ round($a->case_score) }}</span>
                 </summary>
