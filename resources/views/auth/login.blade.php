@@ -3,11 +3,13 @@
 @section('body')
 <div class="min-h-screen flex items-stretch">
     <div class="hidden md:flex md:w-1/2 navy-gradient text-white p-12 flex-col justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 orange-gradient rounded-lg flex items-center justify-center font-bold shield-glow">S</div>
-            <div>
-                <div class="font-bold text-lg leading-none">SITANGKAS</div>
-                <div class="text-[10px] text-navy-200 tracking-wider uppercase">Cyber Awareness</div>
+        <div>
+            <div class="flex justify-center mb-6">
+                <img src="/images/logo_sistem.png" alt="SITANGKAS" class="w-20 h-20 rounded-xl">
+            </div>
+            <div class="text-center">
+                <div class="font-bold text-2xl leading-none mb-1">SITANGKAS</div>
+                <div class="text-[11px] text-navy-200 tracking-wider uppercase">Cyber Awareness</div>
             </div>
         </div>
         <div>

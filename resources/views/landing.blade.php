@@ -4,10 +4,8 @@
 <div class="min-h-screen">
     <header style="background:linear-gradient(135deg,#1B2A4A 0%,#243B63 55%,#3a2a17 130%)" class="text-white">
         <nav class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 orange-gradient rounded-xl flex items-center justify-center text-white">
-                    <x-icon name="shield-check" class="w-5 h-5" />
-                </span>
+            <div class="flex items-center gap-3">
+                <img src="/images/logo_sistem.png" alt="SITANGKAS" class="w-12 h-12 rounded-xl">
                 <span class="font-extrabold text-lg tracking-tight">SITANGKAS</span>
             </div>
             <div class="flex items-center gap-2">

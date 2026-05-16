@@ -4,7 +4,7 @@
 <div class="min-h-screen flex flex-col md:flex-row">
     <aside class="navy-gradient text-white md:w-64 md:min-h-screen md:sticky md:top-0 flex md:flex-col">
         <div class="px-5 py-5 flex items-center gap-3 border-b border-white/10">
-            <div class="w-9 h-9 orange-gradient rounded-lg flex items-center justify-center font-bold shield-glow">A</div>
+            <img src="/images/logo_sistem.png" alt="SITANGKAS" class="w-12 h-12 rounded-lg flex-shrink-0">
             <div>
                 <div class="font-bold text-lg leading-none">Admin Panel</div>
                 <div class="text-[10px] text-navy-200 tracking-wider uppercase">SITANGKAS</div>

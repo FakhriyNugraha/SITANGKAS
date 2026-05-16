@@ -10,9 +10,7 @@
     <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-[#e7ecf5]">
         <div class="max-w-5xl mx-auto px-4 h-14 flex items-center gap-4">
             <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2">
-                <span class="w-8 h-8 orange-gradient rounded-xl flex items-center justify-center text-white">
-                    <x-icon name="shield-check" class="w-5 h-5" />
-                </span>
+                <img src="/images/logo_sistem.png" alt="SITANGKAS" class="w-10 h-10 rounded-lg">
                 <span class="font-extrabold tracking-tight">SITANGKAS</span>
             </a>
 
