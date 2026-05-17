@@ -12,7 +12,6 @@
         </div>
         <nav class="px-3 py-4 flex-1 space-y-1 overflow-y-auto">
             <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'sidebar-link-active' : '' }}">Dashboard</a>
-            <a href="{{ route('admin.cases.index') }}" class="sidebar-link {{ request()->routeIs('admin.cases.*') ? 'sidebar-link-active' : '' }}">Kelola Kasus</a>
             <a href="{{ route('admin.materials.index') }}" class="sidebar-link {{ request()->routeIs('admin.materials.*') ? 'sidebar-link-active' : '' }}">Kelola Materi</a>
             <a href="{{ route('admin.results.index') }}" class="sidebar-link {{ request()->routeIs('admin.results.*') ? 'sidebar-link-active' : '' }}">Hasil Belajar User</a>
         </nav>

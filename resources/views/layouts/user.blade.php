@@ -34,13 +34,21 @@
                     <x-icon name="star" class="w-3.5 h-3.5" /> {{ $prog['done'] }}/{{ $prog['total'] }} level
                 </div>
                 <div x-data="{o:false}" class="relative">
-                    <button @click="o=!o" class="w-8 h-8 rounded-full bg-[#1b2a4a] text-white text-xs font-bold flex items-center justify-center">
-                        {{ strtoupper(substr(auth()->user()->name,0,1)) }}
+                    <button @click="o=!o" type="button"
+                            class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full border border-[#e7ecf5] bg-white hover:bg-[#f6f8fc] hover:border-[#d6deeb] transition cursor-pointer">
+                        <span class="w-8 h-8 rounded-full bg-[#1b2a4a] text-white text-xs font-bold flex items-center justify-center">
+                            {{ strtoupper(substr(auth()->user()->name,0,1)) }}
+                        </span>
+                        <span class="hidden sm:block text-sm font-semibold text-[#1b2a4a] max-w-[120px] truncate">{{ auth()->user()->name }}</span>
+                        <x-icon name="chevron-down" class="w-4 h-4 text-[#6b7896] transition-transform" ::class="o && 'rotate-180'" />
                     </button>
-                    <div x-show="o" @click.outside="o=false" x-cloak class="absolute right-0 mt-2 w-44 bg-white border border-[#e7ecf5] rounded-xl shadow-lg py-1 text-sm">
-                        <div class="px-3 py-2 text-xs text-[#6b7896] border-b border-[#eef2f7]">{{ auth()->user()->name }}</div>
+                    <div x-show="o" x-transition.opacity @click.outside="o=false" x-cloak class="absolute right-0 mt-2 w-48 bg-white border border-[#e7ecf5] rounded-xl shadow-lg py-1 text-sm">
+                        <div class="px-3 py-2 border-b border-[#eef2f7]">
+                            <div class="text-sm font-semibold text-[#1b2a4a] truncate">{{ auth()->user()->name }}</div>
+                            <div class="text-xs text-[#6b7896] truncate">{{ auth()->user()->email }}</div>
+                        </div>
                         <form method="POST" action="{{ route('logout') }}">@csrf
-                            <button class="w-full text-left px-3 py-2 hover:bg-[#f6f8fc] flex items-center gap-2">
+                            <button class="w-full text-left px-3 py-2 hover:bg-[#f6f8fc] flex items-center gap-2 text-[#dc2626]">
                                 <x-icon name="logout" class="w-4 h-4" /> Keluar
                             </button>
                         </form>

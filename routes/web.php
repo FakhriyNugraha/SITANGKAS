@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminCaseController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminFuzzyIndicatorController;
 use App\Http\Controllers\Admin\AdminImportController;
@@ -51,13 +50,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/cases', [AdminCaseController::class, 'index'])->name('cases.index');
-    Route::get('/cases/create', [AdminCaseController::class, 'create'])->name('cases.create');
-    Route::post('/cases', [AdminCaseController::class, 'store'])->name('cases.store');
-    Route::get('/cases/{case}/edit', [AdminCaseController::class, 'edit'])->name('cases.edit');
-    Route::put('/cases/{case}', [AdminCaseController::class, 'update'])->name('cases.update');
-    Route::delete('/cases/{case}', [AdminCaseController::class, 'destroy'])->name('cases.destroy');
 
     Route::get('/indicators', [AdminFuzzyIndicatorController::class, 'index'])->name('indicators.index');
     Route::get('/indicators/create', [AdminFuzzyIndicatorController::class, 'create'])->name('indicators.create');

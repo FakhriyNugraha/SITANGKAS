@@ -29,10 +29,6 @@
     <div class="card lg:col-span-2">
         <div class="font-semibold mb-3">Aksi Cepat</div>
         <div class="grid grid-cols-2 gap-3">
-            <a href="{{ route('admin.cases.create') }}" class="p-4 bg-navy-50 rounded-lg hover:bg-navy-100 transition">
-                <div class="font-bold">+ Tambah Kasus</div>
-                <div class="text-xs text-navy-500">Buat skenario simulasi baru</div>
-            </a>
             <a href="{{ route('admin.materials.create') }}" class="p-4 bg-navy-50 rounded-lg hover:bg-navy-100 transition">
                 <div class="font-bold">+ Tambah Materi</div>
                 <div class="text-xs text-navy-500">Tulis materi edukasi baru</div>

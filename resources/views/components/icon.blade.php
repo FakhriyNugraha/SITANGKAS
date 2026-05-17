@@ -8,10 +8,10 @@
         'check-circle' => '<path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 2.25 2.25 4.5-4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>',
         'x-circle'     => '<path stroke-linecap="round" stroke-linejoin="round" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>',
         'alert'        => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008M10.34 3.94l-7.4 12.8A1.5 1.5 0 0 0 4.24 19h15.52a1.5 1.5 0 0 0 1.3-2.26l-7.4-12.8a1.5 1.5 0 0 0-2.6 0Z"/>',
-        'book'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75A4.5 4.5 0 0 0 8 5H4v12h4a4 4 0 0 1 4 2 4 4 0 0 1 4-2h4V5h-4a4.5 4.5 0 0 0-4 1.75Zm0 0V19"/>',
+        'book'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13m0-13C10.83 5.48 9.25 5 7.5 5S4.17 5.48 3 6.25v13C4.17 18.48 5.75 18 7.5 18s3.33.48 4.5 1.25m0-13C13.17 5.48 14.75 5 16.5 5s3.33.48 4.5 1.25v13C19.83 18.48 18.25 18 16.5 18s-3.33.48-4.5 1.25"/>',
         'cap'          => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4 2.5 9 12 14l7-3.7V16m-7 4c-3 0-5-1.3-5-3v-3.2M12 20c3 0 5-1.3 5-3v-3.2"/>',
         'play'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.65a.6.6 0 0 1 .92-.5l11 6.35a.6.6 0 0 1 0 1.04l-11 6.35a.6.6 0 0 1-.92-.5V5.65Z"/>',
-        'link'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M13.2 10.8a4 4 0 0 0-5.66 0l-3 3a4 4 0 1 0 5.66 5.66l1.5-1.5m-1.9-6.76a4 4 0 0 1 5.66 0l3 3a4 4 0 0 1-5.66 5.66l-1.5-1.5"/>',
+        'link'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.69a4.5 4.5 0 0 1 1.24 7.24l-4.5 4.5a4.5 4.5 0 0 1-6.36-6.36l1.75-1.76m13.35-.62 1.76-1.76a4.5 4.5 0 0 0-6.36-6.36l-4.5 4.5a4.5 4.5 0 0 0 1.24 7.24"/>',
         'gift'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13M4 12h16M5 8h14v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8Zm7 0S10.5 3 7.75 3a2.25 2.25 0 0 0 0 4.5M12 8s1.5-5 4.25-5a2.25 2.25 0 0 1 0 4.5"/>',
         'key'          => '<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m-2.5 4.5a6 6 0 1 0-5.6 3.99l1.6 1.6v2.16h2.16l1.34-1.34a6 6 0 0 0 .5-10.41Z"/>',
         'cart'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.5l2.1 12.4a1.5 1.5 0 0 0 1.48 1.25h9.7a1.5 1.5 0 0 0 1.48-1.23L20.25 7H5.1M9 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>',
@@ -32,6 +32,7 @@
         'mail'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.5h17v11h-17v-11Zm0 .5 8.5 6 8.5-6"/>',
         'chat'         => '<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 5.5h15a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H9l-4 3.5V16.5H4.5A1.5 1.5 0 0 1 3 15V7a1.5 1.5 0 0 1 1.5-1.5Z"/>',
         'globe'        => '<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-9c2.5 2.5 2.5 15.5 0 18M12 3C9.5 5.5 9.5 18.5 12 21M3.5 9h17M3.5 15h17"/>',
+        'chevron-down' => '<path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>',
     ];
     $svg = $paths[$name] ?? $paths['shield'];
 @endphp
